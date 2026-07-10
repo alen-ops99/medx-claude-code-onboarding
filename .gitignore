@@ -1,0 +1,5 @@
+shots/
+research.json
+reviews.json
+verify.py
+.playwright-mcp/
