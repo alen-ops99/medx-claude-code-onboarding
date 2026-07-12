@@ -269,6 +269,12 @@
     }
     .nav-toggle { display: block; }
   }
+  @media (max-width: 700px){
+    .brand .brand-sub { display: none; }
+  }
+  @media (max-width: 355px){
+    .nav-mini-cta { display: none; }
+  }
 
   body.menu-open { overflow: hidden; }
 
@@ -838,7 +844,7 @@
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 13px; background: #F1EDE6; color: var(--primary);
     padding: 2px 7px; border-radius: 6px; border: 1px solid var(--line-soft);
-    word-break: break-all;
+    white-space: nowrap;
   }
 
   details.power { border-top: 1px solid var(--line-soft); }
@@ -875,43 +881,6 @@
     font-family: var(--body); z-index: 1; text-align: center; line-height: 1;
   }
   .wt-timeline .tx { font-size: 15px; padding-top: 8px; }
-
-  /* ============================================================
-     FIRST STEPS / TRY TODAY CHECKLIST
-  ============================================================ */
-  .checklist {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-    counter-reset: c;
-  }
-  @media (max-width: 720px){ .checklist { grid-template-columns: 1fr; } }
-  .check-item {
-    display: flex; gap: 15px; align-items: flex-start;
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 18px 20px;
-    box-shadow: var(--shadow-sm); cursor: pointer;
-    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
-    user-select: none;
-  }
-  .check-item:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-  .check-item .box {
-    flex: none; width: 26px; height: 26px; border-radius: 8px;
-    border: 2px solid var(--line); background: #fff;
-    display: grid; place-items: center; margin-top: 1px;
-    transition: all .22s var(--ease); color: transparent;
-  }
-  .check-item.done { border-color: #B9DEC6; background: #F5FBF7; }
-  .check-item.done .box { background: #2E7D50; border-color: #2E7D50; color: #fff; }
-  .check-item .ctext { font-size: 15px; color: var(--text); }
-  .check-item.done .ctext { color: var(--muted); }
-  .check-item .cmd {
-    display: block; margin-top: 6px; font-size: 13px; color: var(--muted);
-    font-style: italic;
-  }
-  .check-progress {
-    margin-top: 26px; text-align: center;
-    font-size: 14.5px; color: var(--muted);
-  }
-  .check-progress strong { color: var(--primary); }
 
   /* ============================================================
      FAQ
@@ -1042,147 +1011,6 @@
   }
 
   /* ============================================================
-     WHAT CHANGES FOR YOU: OUTCOME CARDS + VIGNETTES
-  ============================================================ */
-  .change-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 44px;
-  }
-  @media (max-width: 820px){ .change-grid { grid-template-columns: 1fr; } }
-  .change-card {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 22px;
-    box-shadow: var(--shadow-sm);
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
-  }
-  .change-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-soft); }
-  .change-tag {
-    display: inline-block; margin-top: 16px;
-    font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--accent-ink);
-  }
-  .change-card h3 { font-size: 21px; margin: 6px 0 8px; }
-  .change-card p { color: var(--muted); font-size: 15.5px; margin: 0; }
-
-  /* Looping vignette stage */
-  .vig {
-    position: relative; height: 118px;
-    border-radius: 14px;
-    background: linear-gradient(160deg, #FCFBF9, #F1EDE6);
-    border: 1px solid var(--line-soft);
-    overflow: hidden;
-    display: grid; place-items: center;
-  }
-
-  /* Faster: spreadsheet cells settling into place + check */
-  .vig-sheet {
-    display: grid; grid-template-columns: repeat(4, 20px); grid-template-rows: repeat(3, 10px); gap: 6px;
-  }
-  .vig-cell {
-    --dx: 8px; --dy: 0px;
-    background: linear-gradient(90deg, var(--g3), var(--g4));
-    border-radius: 3px;
-    animation: cellSettle 5s var(--ease) infinite both;
-  }
-  .vig-cell:nth-child(3n)   { --dx: -8px; }
-  .vig-cell:nth-child(2n)   { --dy: 6px; }
-  .vig-cell:nth-child(4n+1) { --dx: 10px; --dy: -5px; }
-  .vig-cell:nth-child(3n+1) { animation-delay: 0s; }
-  .vig-cell:nth-child(3n+2) { animation-delay: .16s; }
-  .vig-cell:nth-child(3n)   { animation-delay: .32s; }
-  @keyframes cellSettle {
-    0%   { transform: translate(var(--dx), var(--dy)); opacity: 0; }
-    18%  { transform: none; opacity: 1; }
-    88%  { transform: none; opacity: 1; }
-    100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
-  }
-  .vig-check {
-    position: absolute; right: 16px; bottom: 14px;
-    color: #2E7D50;
-    animation: vigCheck 5s var(--ease) infinite both;
-  }
-  @keyframes vigCheck {
-    0%, 52% { opacity: 0; transform: scale(.5); }
-    68%     { opacity: 1; transform: scale(1.12); }
-    88%     { opacity: 1; transform: scale(1); }
-    100%    { opacity: 0; transform: scale(.5); }
-  }
-
-  /* Better: paragraph lines with EN to HR crossfade + sparkle */
-  .vig-para { display: flex; flex-direction: column; gap: 7px; width: 82px; }
-  .vig-para span { height: 7px; border-radius: 4px; background: linear-gradient(90deg, #EDF2F3, #F4F1EC); }
-  .vig-para span:nth-child(2) { width: 90%; }
-  .vig-para span:nth-child(3) { width: 68%; }
-  .vig-langtag {
-    position: absolute; top: 13px; right: 13px;
-    font-family: var(--body); font-size: 11px; font-weight: 700; letter-spacing: .08em;
-    padding: 3px 7px; border-radius: 6px;
-  }
-  .vig-langtag.en { color: var(--primary); background: rgba(31,78,95,.12); animation: tagEN 4.5s var(--ease) infinite both; }
-  .vig-langtag.hr { color: var(--accent-ink); background: rgba(224,139,84,.16); animation: tagHR 4.5s var(--ease) infinite both; }
-  @keyframes tagEN { 0%, 40% { opacity: 1; } 55%, 95% { opacity: 0; } 100% { opacity: 1; } }
-  @keyframes tagHR { 0%, 40% { opacity: 0; } 55%, 95% { opacity: 1; } 100% { opacity: 0; } }
-  .vig-spark {
-    position: absolute; left: 14px; bottom: 13px; color: var(--accent-ink);
-    animation: vigSpark 4.5s var(--ease) infinite both;
-  }
-  @keyframes vigSpark {
-    0%, 38% { opacity: 0; transform: scale(.4) rotate(-18deg); }
-    50%     { opacity: 1; transform: scale(1) rotate(0deg); }
-    64%, 100% { opacity: 0; transform: scale(.4) rotate(18deg); }
-  }
-
-  /* New: a browser wireframe drawing itself */
-  .vig-win {
-    width: 108px; border-radius: 8px; border: 1px solid var(--line);
-    background: #fff; overflow: hidden; box-shadow: var(--shadow-sm);
-  }
-  .vig-win-top {
-    display: flex; gap: 3px; padding: 6px 8px;
-    background: linear-gradient(180deg, #F7F4EF, #F1EDE6);
-    border-bottom: 1px solid var(--line-soft);
-  }
-  .vig-win-top i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); display: block; }
-  .vig-win-body { padding: 9px; display: flex; flex-direction: column; gap: 6px; }
-  .vig-el { transform-origin: left; border-radius: 3px; animation: elDraw 5.6s var(--ease) infinite both; }
-  .vig-header { height: 8px; width: 100%; background: linear-gradient(90deg, var(--g3), var(--g4)); animation-delay: 0s; }
-  .vig-block  { height: 6px; width: 100%; background: linear-gradient(90deg, #EDF2F3, #F4F1EC); animation-delay: .5s; }
-  .vig-block2 { height: 6px; width: 78%;  background: linear-gradient(90deg, #EDF2F3, #F4F1EC); animation-delay: 1s; }
-  .vig-btn    { height: 12px; width: 40px; border-radius: 6px; background: linear-gradient(135deg, var(--primary), var(--primary-soft)); animation-delay: 1.5s; }
-  @keyframes elDraw {
-    0%   { opacity: 0; transform: translateY(3px) scaleX(.5); }
-    10%  { opacity: 1; transform: none; }
-    88%  { opacity: 1; transform: none; }
-    100% { opacity: 0; transform: translateY(3px) scaleX(.5); }
-  }
-
-  /* ============================================================
-     HOW YOU LEARN IT: HABITS
-  ============================================================ */
-  .habits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 44px; }
-  @media (max-width: 900px){ .habits { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 620px){ .habits { grid-template-columns: 1fr; } }
-  .habit {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 24px;
-    box-shadow: var(--shadow-sm);
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
-  }
-  .habit:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-soft); }
-  .habit .ic {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: grid; place-items: center;
-    background: linear-gradient(135deg, var(--g3), var(--g4));
-    color: var(--accent-ink); margin-bottom: 15px;
-  }
-  .habit h3 { font-size: 18px; margin-bottom: 7px; line-height: 1.25; }
-  .habit p { color: var(--muted); font-size: 15px; margin: 0; }
-  .learn-prompt { margin: 46px 0 0; max-width: none; }
-  .learn-prompt .ptxt span { display: block; padding: 4px 0; }
-  .learn-prompt .ptxt span + span { border-top: 1px dashed var(--line-soft); }
-
-  /* ============================================================
      HERO CROATIAN ONE-LINER
   ============================================================ */
   .hero-cro { font-size: 13px; font-style: italic; color: var(--muted); margin: 14px 0 0; }
@@ -1223,43 +1051,6 @@
   /* staggered pop-in (reuses .reveal IntersectionObserver + reduced-motion fallback) */
   .basic-step.reveal { transform: translateY(18px) scale(.94); }
   .basic-step.reveal.in { transform: none; }
-
-  /* ============================================================
-     WHAT IT IS: ICON CHIPS
-  ============================================================ */
-  .wi-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-  .wi-chip {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 999px; padding: 10px 18px;
-    font-size: 15px; font-weight: 600; color: var(--text);
-    box-shadow: var(--shadow-sm);
-  }
-  .wi-chip svg { color: var(--accent-ink); flex: none; }
-
-  /* ============================================================
-     HOW IT FEELS: MINI CHAT BUBBLES
-  ============================================================ */
-  .feels-flow { display: flex; flex-direction: column; gap: 14px; max-width: 620px; margin: 0 auto; }
-  .fb {
-    padding: 14px 18px; border-radius: 16px;
-    font-size: 15.5px; line-height: 1.5; max-width: 88%;
-    box-shadow: var(--shadow-sm);
-  }
-  .fb-user { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 5px; }
-  .fb-bot { align-self: flex-start; background: #fff; border: 1px solid var(--line-soft); color: var(--text); border-bottom-left-radius: 5px; }
-  .fb-done { display: inline-flex; align-items: center; gap: 9px; }
-  .fb-check { color: #2E7D50; flex: none; animation: checkPulse 3s var(--ease) infinite; animation-play-state: paused; }
-  @keyframes checkPulse { 0%, 70% { transform: scale(1); } 80% { transform: scale(1.25); } 90% { transform: scale(1); } }
-  .typing { display: inline-flex; gap: 4px; vertical-align: middle; margin-right: 7px; }
-  .typing i {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--muted); display: block;
-    animation: typedot 1.4s var(--ease) infinite; animation-play-state: paused;
-  }
-  .typing i:nth-child(2){ animation-delay: .2s; }
-  .typing i:nth-child(3){ animation-delay: .4s; }
-  @keyframes typedot { 0%, 60%, 100% { opacity: .25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
-  .feels-flow.in .typing i, .feels-flow.in .fb-check { animation-play-state: running; }
 
   /* ============================================================
      TRANSFORMATION STRIP: BEFORE STRIKE ON REVEAL
@@ -1535,6 +1326,69 @@
     }
   }
   body.menu-open .help-widget { display: none; }
+
+  /* ============================================================
+     GET IT (compact) + SAFETY ROW + USE-CASE EXAMPLE TOGGLE
+  ============================================================ */
+  .getit-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 36px; }
+  @media (max-width: 820px){ .getit-grid { grid-template-columns: 1fr; } }
+  .getit-tile {
+    position: relative;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 24px 22px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  .getit-n { font-family: var(--display); font-weight: 600; font-size: 34px; color: var(--accent); line-height: 1; }
+  .getit-badge {
+    position: absolute; top: 24px; right: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--primary); background: rgba(31,78,95,.1);
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .getit-badge.easy { color: #2E7D50; background: rgba(46,125,80,.12); }
+  .getit-tile h3 { font-family: var(--body); font-weight: 600; font-size: 16.5px; line-height: 1.42; margin: 14px 0 0; }
+  .getit-tile h3 a.code { font-weight: 700; }
+  .getit-switch {
+    display: flex; gap: 14px; align-items: center;
+    margin-top: 18px;
+    background: linear-gradient(150deg, #E9F2F3, #DCEAEC);
+    border: 1px solid #C7DDE0; border-radius: var(--radius);
+    padding: 15px 20px;
+  }
+  .getit-shield {
+    flex: none; width: 36px; height: 36px; border-radius: 10px;
+    background: #fff; color: var(--primary);
+    display: grid; place-items: center; box-shadow: var(--shadow-sm);
+  }
+  .getit-switch p { margin: 0; font-size: 15px; color: var(--primary-soft); }
+  .getit-switch strong { color: var(--primary); }
+  .getit-adv { margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+  .getit-adv > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 15px 20px; font-weight: 600; font-size: 14.5px; color: var(--muted); }
+  .getit-adv > summary::-webkit-details-marker { display: none; }
+  .getit-adv .exchev { margin-left: auto; flex: none; transition: transform .3s var(--ease); }
+  .getit-adv[open] > summary .exchev { transform: rotate(180deg); }
+  .getit-adv > p { margin: 0; padding: 0 20px 18px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+  .getit-foot { margin: 18px 0 0; text-align: center; font-size: 12.5px; color: var(--muted); }
+
+  .safety-row { padding: 36px 0; }
+  .srow-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  @media (max-width: 820px){ .srow-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px){ .srow-grid { grid-template-columns: 1fr; } }
+  .srow-item {
+    display: flex; gap: 12px; align-items: center;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 15px 16px;
+    box-shadow: var(--shadow-sm);
+    font-size: 14px; font-weight: 600; color: var(--text);
+  }
+  .srow-ic { flex: none; width: 32px; height: 32px; border-radius: 9px; background: rgba(31,78,95,.1); color: var(--primary); display: grid; place-items: center; }
+
+  .uc-ex { margin: 0 22px 4px; border-top: 1px dashed var(--line-soft); }
+  .uc-ex > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 13px 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); }
+  .uc-ex > summary::-webkit-details-marker { display: none; }
+  .uc-ex .exchev { margin-left: auto; flex: none; color: var(--muted); transition: transform .3s var(--ease); }
+  .uc-ex[open] > summary .exchev { transform: rotate(180deg); }
+  .uc-ex .uc-prompt { margin: 0 0 14px; }
 </style>
 </head>
 <body>
@@ -1551,11 +1405,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
       <nav class="nav-links" id="navLinks" aria-label="Section navigation">
-        <a href="#what-it-is">What it is</a>
-        <a href="#why-you-care">What changes</a>
-        <a href="#see-it-for-medx">See it work</a>
-        <a href="#trust-safety">Is it safe?</a>
-        <a href="#first-steps">Get started</a>
+        <a href="#see-it-for-medx">Use cases</a>
+        <a href="#first-steps">Get it</a>
         <a href="#faq">FAQ</a>
         <a class="btn btn-primary nav-cta" href="#first-steps">Try it today</a>
       </nav>
@@ -1712,91 +1563,6 @@
 
   <div class="divider" data-divider></div>
 
-  <!-- ======================= WHAT IT IS ======================= -->
-  <section id="what-it-is" aria-labelledby="wi-h">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow">The plain-words version</span>
-        <h2 class="section-title" id="wi-h">So… what actually is it?</h2>
-        <p class="section-lead">A patient colleague at your computer who reads your files and does real tasks, just by asking in normal words.</p>
-        <div class="wi-chips">
-          <span class="wi-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>Does the task, not just chat</span>
-          <span class="wi-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Works with your real files</span>
-          <span class="wi-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>Plain words, no code</span>
-        </div>
-      </div>
-
-      <!-- Misconceptions -->
-      <div class="reveal" style="margin-top:52px;">
-        <h3 style="font-size:clamp(22px,3vw,30px);">A few common worries</h3>
-      </div>
-      <div class="grid grid-2 myths">
-        <div class="myth reveal"><div class="m">I must know how to code.</div><div class="t">No. Type normal sentences, like messaging.</div></div>
-        <div class="myth reveal"><div class="m">It just gives me text to paste.</div><div class="t">It makes finished files, not just words.</div></div>
-        <div class="myth reveal"><div class="m">Our data goes out to the world.</div><div class="t">It sees only what you point it to.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider" data-divider></div>
-
-  <!-- ======================= WHY YOU CARE ======================= -->
-  <section id="why-you-care" class="band" aria-labelledby="wy-h">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow">What changes for you</span>
-        <h2 class="section-title" id="wy-h">What changes for you and for Med&amp;X</h2>
-        <p class="section-lead">Less busywork, faster event prep.</p>
-      </div>
-
-      <div class="change-grid">
-        <article class="change-card reveal">
-          <div class="vig vig-faster" aria-hidden="true">
-            <div class="vig-sheet"><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span><span class="vig-cell"></span></div>
-            <svg class="vig-check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          <span class="sr-only">An illustration of a messy spreadsheet whose cells slide into neat rows, then a check mark appears.</span>
-          <span class="change-tag">Faster</span>
-          <h3>Faster</h3>
-          <p>The busywork of running Med&amp;X, in minutes instead of afternoons. It even reads long PDFs and checks its own work.</p>
-        </article>
-
-        <article class="change-card reveal">
-          <div class="vig vig-better" aria-hidden="true">
-            <div class="vig-para"><span></span><span></span><span></span></div>
-            <span class="vig-langtag en">EN</span>
-            <span class="vig-langtag hr">HR</span>
-            <svg class="vig-spark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>
-          </div>
-          <span class="sr-only">An illustration of a paragraph switching from an English label to a Croatian label, with a small polish sparkle.</span>
-          <span class="change-tag">Better</span>
-          <h3>Better</h3>
-          <p>Polished and formal output, in both languages, like a translator and designer on call.</p>
-        </article>
-
-        <article class="change-card reveal">
-          <div class="vig vig-new" aria-hidden="true">
-            <div class="vig-win">
-              <div class="vig-win-top"><i></i><i></i><i></i></div>
-              <div class="vig-win-body">
-                <span class="vig-el vig-header"></span>
-                <span class="vig-el vig-block"></span>
-                <span class="vig-el vig-block2"></span>
-                <span class="vig-el vig-btn"></span>
-              </div>
-            </div>
-          </div>
-          <span class="sr-only">An illustration of a small web page drawing itself: a header bar, two blocks of content, then a button.</span>
-          <span class="change-tag">New</span>
-          <h3>New</h3>
-          <p>Things the team could not do before: a registration website, charts from a spreadsheet, a video script. You describe it, it builds it.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider" data-divider></div>
-
   <!-- ======================= SEE IT FOR MEDX (USE-CASE GALLERY) ======================= -->
   <section id="see-it-for-medx" aria-labelledby="sc-h">
     <div class="wrap">
@@ -1830,288 +1596,59 @@
 
   <div class="divider" data-divider></div>
 
-  <!-- ======================= HOW IT FEELS ======================= -->
-  <section id="how-it-feels" class="band" aria-labelledby="hf-h">
-    <div class="wrap">
-      <div class="reveal" style="text-align:center; margin-bottom:34px;">
-        <span class="eyebrow" style="justify-content:center;">It’s just a conversation</span>
-        <h2 class="section-title" id="hf-h" style="margin-inline:auto;">It’s just a conversation</h2>
-        <p class="section-lead" style="margin-inline:auto;">You ask, it checks, you accept.</p>
-      </div>
-      <div class="feels-flow reveal">
-        <div class="fb fb-user">Write a Croatian thank-you to last week’s speakers.</div>
-        <div class="fb fb-bot"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>Formal tone, or add the dinner details?</div>
-        <div class="fb fb-bot fb-done"><svg class="fb-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Done. Your file is ready to review.</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider" data-divider></div>
-
-  <!-- ======================= HOW YOU LEARN IT ======================= -->
-  <section id="how-you-learn-it" aria-labelledby="hl-h">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow">Learn it as you go</span>
-        <h2 class="section-title" id="hl-h">How you learn it</h2>
-        <p class="section-lead">Learn it by using it: five habits, no course.</p>
-      </div>
-
-      <div class="habits">
-        <article class="habit reveal">
-          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></div>
-          <h3>Start with one real task, today</h3>
-          <p>Not a course. One email you actually need to send.</p>
-        </article>
-        <article class="habit reveal">
-          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></div>
-          <h3>Say the outcome, not the method</h3>
-          <p>“I need this list as name badges” beats explaining how. It figures out the how.</p>
-        </article>
-        <article class="habit reveal">
-          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg></div>
-          <h3>Not right? Say what to change</h3>
-          <p>“More formal.” “Shorter.” “Add the dinner details.” Each round takes seconds.</p>
-        </article>
-        <article class="habit reveal">
-          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg></div>
-          <h3>When you are stuck, ask it</h3>
-          <p>Type “How do I get you to do X?” and it explains, then often just does it. It is the manual.</p>
-        </article>
-        <article class="habit reveal">
-          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-          <h3>Poke it</h3>
-          <p>You cannot break anything. It asks before touching your files.</p>
-        </article>
-      </div>
-
-      <div class="uc-prompt learn-prompt reveal">
-        <div class="plabel"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg> Five requests that unlock everything</div>
-        <div class="ptxt" id="learnPromptText">
-          <span>Write a warm, formal version of this email.</span>
-          <span>Translate this into formal Croatian and keep the tone.</span>
-          <span>Clean up this spreadsheet and count attendees by city.</span>
-          <span>Summarize this PDF in five bullet points.</span>
-          <span>How would I get you to build a registration page?</span>
-        </div>
-        <div class="phint">Copy any one now. Then get set up in the steps below, paste it as your first message, and change the words to fit your real task.</div>
-        <button class="copy-btn" id="learnCopyBtn" type="button" aria-label="Copy all five requests"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy all five</span></button>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider" data-divider></div>
-
-  <!-- ======================= TRUST & SAFETY ======================= -->
-  <section id="trust-safety" aria-labelledby="ts-h">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow">Trust &amp; safety</span>
-        <h2 class="section-title" id="ts-h">Is it safe? Yes, here’s how</h2>
-        <p class="section-lead">A human always stays in charge.</p>
-      </div>
-
-      <div class="safety-grid" style="margin-top:40px;">
-        <ul class="safety-list reveal">
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span>Read every AI-written email before you send it. You hit send, and your name is on it.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><span>Never paste patient-identifiable data (names, dates of birth, OIB, medical record numbers, diagnoses). Med&amp;X does conference and sponsor work, not patient care, which keeps you GDPR-safe.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span>Double-check facts and numbers before they go out: titles, dates, prices, counts. AI can sound confident and be slightly off.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1"/><circle cx="9" cy="7" r="3"/><path d="M22 19v-1a4 4 0 0 0-3-3.87"/><path d="M16 4.13a4 4 0 0 1 0 7.75"/></svg></span><span>For anything official (invitations, brochures, certificates), have a second person glance before sending.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Keep confidential contracts, financials, and personal team data out of places they should not go. Ask if unsure.</span></li>
-        </ul>
-
-        <aside class="privacy-note reveal" aria-label="You stay in control">
-          <span class="pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg> You’re always in control</span>
-          <h3>The one rule that keeps us safe</h3>
-          <p>By default it proposes every change and shows a clear before-and-after with <strong>Accept</strong> and <strong>Reject</strong> buttons. Nothing is touched until you click Accept.</p>
-          <ul>
-            <li>It works in the folder you open and asks permission before reaching outside it</li>
-            <li>It asks before deleting or overwriting anything</li>
-            <li>Turn off “Help improve Claude” in claude.ai Settings, then Privacy, so your work is never used to help improve the AI (this is automatic on a Team or Enterprise plan)</li>
-            <li>No real patient data, ever, only conference and sponsor work</li>
-          </ul>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider" data-divider></div>
-
-  <!-- ======================= FIRST STEPS / GET STARTED ======================= -->
+  <!-- ======================= GET IT ======================= -->
   <section id="first-steps" class="band" aria-labelledby="fs-h">
     <div class="wrap">
       <div class="reveal">
-        <span class="eyebrow">Your first five minutes</span>
-        <h2 class="section-title" id="fs-h">Get started, the easiest way first</h2>
-        <p class="section-lead">Start in your web browser, nothing to install.</p>
+        <span class="eyebrow">Get it</span>
+        <h2 class="section-title" id="fs-h">Get it in three steps</h2>
+        <p class="section-lead">Start in your browser. Nothing to install.</p>
       </div>
 
-      <!-- Plans -->
-      <div class="reveal" style="margin-top:38px;">
-        <h3 style="font-size:22px;">First, the account</h3>
-        <p style="color:var(--muted); max-width:66ch;">Claude Code does <strong>not</strong> work on the free plan, so make a free account at claude.ai and upgrade to Pro. Pro is about $20 a month, you subscribe yourself, and can cancel any time. Confirm the current price on the <a href="https://claude.ai/pricing" target="_blank" rel="noopener">Claude pricing page</a>.</p>
-      </div>
-      <div class="plans reveal">
-        <div class="plan reco">
-          <span class="tag">Recommended</span>
-          <h4>Claude Pro</h4>
-          <div class="price">~$20<small> / month</small></div>
-          <p>Includes Claude Code on web, desktop, and terminal at no extra charge, plus everyday Claude chat. One shared monthly allowance.</p>
+      <div class="getit-grid reveal">
+        <div class="getit-tile">
+          <span class="getit-n">1</span>
+          <span class="getit-badge easy">Easiest</span>
+          <h3>Open <a class="code" href="https://claude.ai/code" target="_blank" rel="noopener">claude.ai/code</a> in your browser. Nothing to install.</h3>
         </div>
-        <div class="plan">
-          <h4>Max</h4>
-          <div class="price">~$100<small> / month</small></div>
-          <p>Only if you regularly hit limits (rare for our work). Several times the usage, with a heavier tier (about $200 a month) above it.</p>
+        <div class="getit-tile">
+          <span class="getit-n">2</span>
+          <span class="getit-badge">Or</span>
+          <h3>Download the desktop app at <a class="code" href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a>. Mac and Windows.</h3>
         </div>
-        <div class="plan">
-          <h4>Team plan</h4>
-          <div class="price">Central billing</div>
-          <p>If several of you use it, Med&amp;X can put people on a Team plan under one admin and organization billing. A developer API-key route exists but is technical and <strong>not</strong> recommended.</p>
+        <div class="getit-tile">
+          <span class="getit-n">3</span>
+          <span class="getit-badge">Account</span>
+          <h3>Free at <a class="code" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>, upgrade to Pro about $20 a month. You subscribe yourself.</h3>
         </div>
       </div>
 
-      <!-- Make your account -->
-      <div class="reveal" style="margin-top:8px;">
-        <h3 style="font-size:22px; margin-bottom:6px;">Make your account (once only)</h3>
-        <ol class="steps" style="margin-top:6px;">
-          <li>Open your web browser and go to <a class="code" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</li>
-          <li>Click “Sign up”, enter your email, and pick a password (or “Continue with Google”).</li>
-          <li>Claude emails a short code. Type it back into the page.</li>
-          <li>You now have a free account. It does not include Claude Code, so you upgrade next.</li>
-          <li>Click your name (bottom-left), choose “Settings”, then “Billing”, and pick “Pro”. About $20 a month, you subscribe yourself, cancel any time.</li>
-        </ol>
+      <div class="getit-switch reveal">
+        <span class="getit-shield" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></span>
+        <p><strong>One switch:</strong> in claude.ai Settings, then Privacy, turn off &ldquo;Help improve Claude&rdquo;. 10 seconds.</p>
       </div>
 
-      <!-- Paths -->
-      <div class="reveal" style="margin-top:8px;">
-        <h3 style="font-size:22px; margin-bottom:6px;">Then, how you open it</h3>
-        <p style="color:var(--muted);">Three ways in, easiest first. Most never need the second.</p>
-      </div>
+      <details class="getit-adv reveal">
+        <summary>Advanced: the terminal, most people never need this<svg class="exchev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p>Tech-minded only. On Mac or Linux, run <span class="code">curl -fsSL https://claude.ai/install.sh | bash</span>. On Windows PowerShell, run <span class="code">irm https://claude.ai/install.ps1 | iex</span>. Then type <span class="code">claude</span> and press Enter.</p>
+      </details>
 
-      <div class="paths">
-        <!-- Path 1: Web -->
-        <article class="path start reveal">
-          <div class="path-head">
-            <span class="path-num" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18"/><path d="M12 3c-3 3-3 15 0 18"/></svg></span>
-            <div class="meta">
-              <h3>Web App, nothing to install</h3>
-              <p class="best">The first try for anyone. Zero installation, working in under a minute. It runs on Anthropic’s secure computers, never touching your machine.</p>
-            </div>
-            <span class="badge easy">Start here</span>
-          </div>
-          <div class="path-body">
-            <ol class="steps">
-              <li>Open your web browser (Chrome or Safari).</li>
-              <li>In the address bar, type <a class="code" href="https://claude.ai/code" target="_blank" rel="noopener">claude.ai/code</a> and press Enter.</li>
-              <li>Sign in with the email and password you just made. (No account? Do “Make your account” above.)</li>
-              <li>One important switch, about 10 seconds. On claude.ai, click your name (bottom-left), choose “Settings”, then “Privacy”, find “Help improve Claude” and tap the switch off. Now your work is never used to improve the AI.</li>
-              <li>That’s it, you’re inside Claude Code, nothing to download. Skip to the “first 60 seconds” walkthrough below.</li>
-              <li>Optional: save the page to return in one click, with Ctrl+D (Windows), Cmd+D (Mac), or “Add to Home Screen” on a phone.</li>
-            </ol>
-          </div>
-        </article>
-
-        <!-- Path 2: Desktop -->
-        <article class="path reveal">
-          <div class="path-head">
-            <span class="path-num" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
-            <div class="meta">
-              <h3>Desktop App, the friendly everyday tool</h3>
-              <p class="best">Your main tool after the web app. A normal program for your own files, point-and-click, no terminal. macOS 13+ or Windows 10/11.</p>
-            </div>
-            <span class="badge daily">Everyday tool</span>
-          </div>
-          <div class="path-body">
-            <ol class="steps">
-              <li><strong>On a Mac:</strong> open your browser, go to <a class="code" href="https://claude.ai/code" target="_blank" rel="noopener">claude.ai/code</a>, then click “Download for macOS” (or search “Claude Code desktop download” for the official link).</li>
-              <li><strong>On Windows:</strong> click “Download for Windows” on the same page.</li>
-              <li>When it finishes, find it in Downloads and double-click. On a Mac, drag the Claude icon onto Applications. On Windows, run the installer and click Next, Next, Finish.</li>
-              <li>Open the app from Applications or Launchpad on a Mac, or the Start menu on Windows. Search “Claude” if needed.</li>
-              <li>The first time, a Mac may warn that Claude was downloaded from the Internet. Click “Open”, it only asks once.</li>
-              <li>Sign in with your Claude email and password.</li>
-              <li>Click the <strong>Code</strong> tab at the top center (that is just its name, not something you do). Chat and Cowork are for other things. You’re ready, go to the walkthrough below.</li>
-            </ol>
-          </div>
-        </article>
-
-        <!-- Path 3: Power user (collapsible) -->
-        <article class="path power reveal">
-          <details class="power">
-            <summary>
-              <span class="s-left">
-                <span class="path-num" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3"/><path d="M13 15h4"/></svg></span>
-                <span class="meta">
-                  <h3 style="margin:0;">Advanced option: Terminal or command line</h3>
-                  <p class="best" style="margin-top:2px;">You can safely ignore this. Most Med&amp;X members should <strong>not</strong> use it. The two options above do everything.</p>
-                </span>
-              </span>
-              <span class="badge power">Optional</span>
-              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-            </summary>
-            <div class="path-body" style="padding-bottom:24px;">
-              <ol class="steps">
-                <li>Non-technical readers: skip this path. Use the Web or Desktop App above and stop here.</li>
-                <li>The “terminal” is a text window where you type commands. Open it: on Mac the <span class="code">Terminal</span> app, on Windows <span class="code">PowerShell</span>.</li>
-                <li><strong>Recommended one-line install</strong> (no Node.js needed). Mac/Linux: <span class="code">curl -fsSL https://claude.ai/install.sh | bash</span> · Windows PowerShell: <span class="code">irm https://claude.ai/install.ps1 | iex</span></li>
-                <li>Alternative if you already use Node.js 22+: <span class="code">npm install -g @anthropic-ai/claude-code</span> (older method, still works).</li>
-                <li>Type <span class="code">claude</span> and press Enter. The first time, it opens your browser to sign in.</li>
-                <li>If anything misbehaves, type <span class="code">claude doctor</span> to check your setup.</li>
-              </ol>
-            </div>
-          </details>
-        </article>
-      </div>
-
-      <!-- 60-second walkthrough -->
-      <div class="walkthrough reveal" aria-labelledby="wt-h">
-        <span class="eyebrow">Your first 60 seconds</span>
-        <h3 id="wt-h" style="font-size:clamp(22px,3vw,30px);">The very first thing to try: one small, real request</h3>
-        <ul class="wt-timeline">
-          <li><span class="tt">0–10s</span><span class="tx">The app or claude.ai/code tab is open. Sign in if asked.</span></li>
-          <li><span class="tt">10–25s</span><span class="tx">Point it at your work. On the web app, click <strong>Upload</strong> to add a file, or just type a request. On the desktop app, click <strong>Select folder</strong> and pick one you know.</span></li>
-          <li><span class="tt">25–40s</span><span class="tx">Find the message box at the bottom, like a chat. <strong>Tell</strong> Claude what you want, in plain words.</span></li>
-          <li><span class="tt">40–50s</span><span class="tx">Type one small, real request and press Enter, like: “Write a warm, formal thank-you note in English and Croatian to a speaker who just confirmed for Plexus.”</span></li>
-          <li><span class="tt">50–54s</span><span class="tx">It may ask a question first, like “What should the note mention?” Just answer in plain words.</span></li>
-          <li><span class="tt">54–60s</span><span class="tx">Claude shows what it will do, with <strong>Accept</strong> and <strong>Reject</strong> buttons, and nothing saves until you click Accept. Not quite right? Say what to change. You just used Claude Code.</span></li>
-        </ul>
-      </div>
+      <p class="getit-foot">Prices are set by Anthropic and may change. Confirm on the <a href="https://claude.ai/pricing" target="_blank" rel="noopener">Claude pricing page</a>.</p>
     </div>
   </section>
 
-  <div class="divider" data-divider></div>
-
-  <!-- ======================= TRY TODAY CHECKLIST ======================= -->
-  <section id="try-today" aria-labelledby="tt2-h">
+  <!-- ======================= SAFETY ROW ======================= -->
+  <section class="safety-row" aria-label="Safety at a glance">
     <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow">Try this today</span>
-        <h2 class="section-title" id="tt2-h">Five tiny things to try today</h2>
-        <p class="section-lead">Each takes under two minutes.</p>
+      <div class="reveal" style="text-align:center; margin-bottom:8px;">
+        <span class="eyebrow" style="justify-content:center;">Safe by design</span>
       </div>
-
-      <div class="checklist reveal" id="checklist" style="margin-top:40px;">
-        <div class="check-item" tabindex="0" role="checkbox" aria-checked="false">
-          <span class="box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="ctext">Summarize a long PDF.<span class="cmd">“Open this conference paper (or meeting notes) in my Downloads and give me the 5 key points in plain bullets.”</span></span>
-        </div>
-        <div class="check-item" tabindex="0" role="checkbox" aria-checked="false">
-          <span class="box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="ctext">Draft a real email.<span class="cmd">“Write a warm, formal thank-you note in both English and Croatian to a speaker who just confirmed for Plexus.”</span></span>
-        </div>
-        <div class="check-item" tabindex="0" role="checkbox" aria-checked="false">
-          <span class="box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="ctext">Clean and count a spreadsheet.<span class="cmd">“Open my registration list and tell me how many attendees we have per city and per role (doctor, student, organizer).”</span></span>
-        </div>
-        <div class="check-item" tabindex="0" role="checkbox" aria-checked="false">
-          <span class="box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="ctext">Make a one-pager.<span class="cmd">“Turn these three sentences about our conference into a polished one-page PDF I could hand to a sponsor.”</span></span>
-        </div>
-        <div class="check-item" tabindex="0" role="checkbox" aria-checked="false">
-          <span class="box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="ctext">Translate something.<span class="cmd">“Translate this short invitation into formal Croatian and keep it just as polite and professional.”</span></span>
-        </div>
+      <div class="srow-grid reveal">
+        <div class="srow-item"><span class="srow-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg></span><span>It always asks first</span></div>
+        <div class="srow-item"><span class="srow-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span>You review before anything is sent</span></div>
+        <div class="srow-item"><span class="srow-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><span>Never paste real patient data</span></div>
+        <div class="srow-item"><span class="srow-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Nothing saved until you accept</span></div>
       </div>
-      <p class="check-progress" id="checkProgress" aria-live="polite">You’ve tried <strong>0 of 5</strong>. Pick any one, start small.</p>
     </div>
   </section>
 
@@ -2135,18 +1672,10 @@
     <div class="wrap">
       <div class="cta reveal">
         <span class="eyebrow" style="justify-content:center;">Come try it</span>
-        <h2 id="ci-h">Come try it, we’ll help you</h2>
-        <p>You’re never stuck alone. Open claude.ai/code, sign in, and paste one sentence, like “Write a warm, formal Croatian thank-you note to a speaker who just confirmed for Plexus.” Read it, change anything you like, and you are off.</p>
+        <h2 id="ci-h">Open it, type one sentence, and watch the work get done.</h2>
         <div class="actions">
-          <a class="btn btn-primary" href="#first-steps">Start with your first five minutes <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn-ghost" href="#see-it-for-medx">Browse real examples</a>
-        </div>
-        <div class="contact-card">
-          <span class="av" aria-hidden="true">A</span>
-          <div>
-            <div class="cc-name"><a href="mailto:president@medx.hr">Ask Alen</a> or post in the team channel</div>
-            <div class="cc-role">Not set up on your computer yet? A quick one-time fix, and someone will walk you through it.</div>
-          </div>
+          <a class="btn btn-primary" href="mailto:president@medx.hr?subject=Question%20from%20the%20Claude%20Code%20guide">Ask Alen for help <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="https://alen-ops99.github.io/medx-admin-portal-guide/" target="_blank" rel="noopener">See the Med&amp;X portal guide</a>
         </div>
       </div>
     </div>
@@ -2359,12 +1888,14 @@
         '<div class="ba-row before"><span class="ba-tag before">Before</span><span class="ba-text">' + esc(c.before) + '</span></div>' +
         '<div class="ba-row after"><span class="ba-tag after">With Claude</span><span class="ba-text">' + esc(c.after) + '</span></div>' +
       '</div>' +
-      '<div class="uc-prompt">' +
-        '<div class="plabel">Example to copy and paste</div>' +
-        '<div class="ptxt" id="p' + i + '">' + esc(c.prompt) + '</div>' +
-        (c.hint ? '<div class="phint">' + esc(c.hint) + '</div>' : '') +
-        '<button class="copy-btn" type="button" aria-label="Copy this example">' + copyIcon + '<span>Copy example</span></button>' +
-      '</div>' +
+      '<details class="uc-ex">' +
+        '<summary>See the example<svg class="exchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>' +
+        '<div class="uc-prompt">' +
+          '<div class="ptxt" id="p' + i + '">' + esc(c.prompt) + '</div>' +
+          (c.hint ? '<div class="phint">' + esc(c.hint) + '</div>' : '') +
+          '<button class="copy-btn" type="button" aria-label="Copy this example">' + copyIcon + '<span>Copy example</span></button>' +
+        '</div>' +
+      '</details>' +
       '<div class="uc-payoff"><span class="spark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></span><span>' + esc(c.payoff) + '</span></div>';
     grid.appendChild(art);
 
@@ -2407,28 +1938,6 @@
     } else { fallback(text, btn, ok); }
   }
 
-  /* “Five requests that unlock everything” copy button (copies all five lines) */
-  var learnCopyBtn = document.getElementById("learnCopyBtn");
-  if(learnCopyBtn){
-    var learnMsgEl = document.getElementById("learnPromptText");
-    var learnMsgText = learnMsgEl
-      ? Array.prototype.map.call(learnMsgEl.querySelectorAll("span"), function(s){ return s.textContent; }).join("\n")
-      : "";
-    learnCopyBtn.addEventListener("click", function(){ copyLearnText(learnMsgText, learnCopyBtn); });
-  }
-  function copyLearnText(text, btn){
-    function ok(){
-      btn.classList.add("copied");
-      btn.innerHTML = checkIcon + '<span>Copied!</span>';
-      setTimeout(function(){
-        btn.classList.remove("copied");
-        btn.innerHTML = copyIcon + '<span>Copy all five</span>';
-      }, 1900);
-    }
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(ok).catch(function(){ fallback(text, btn, ok); });
-    } else { fallback(text, btn, ok); }
-  }
   function fallback(text, btn, ok){
     var ta = document.createElement("textarea");
     ta.value = text; ta.setAttribute("readonly","");
@@ -2468,17 +1977,13 @@
   /* ---------------- FAQ ---------------- */
   var faqs = [
     {q:"Is it safe to use?",a:"Yes. It runs on your computer or a private web workspace, and asks before changing or deleting a file. Our rules: read what it writes before sending, and never put real patient information into it."},
-    {q:"Will it delete my files?",a:"Not on its own. It tells you first and waits for your yes, and you can say to only create new files and delete nothing."},
-    {q:"Do I need to know how to code?",a:"No. You talk to it in plain English or Croatian, like asking a colleague to draft an invitation or clean up an attendee list."},
     {q:"Does it cost money?",a:"Yes, about $20 a month for Claude Pro. Each person subscribes themselves and can cancel any time."},
-    {q:"Can it see my private files?",a:"It works in the folder you open and asks before reaching outside it. The most private option is the web app at claude.ai/code, a sealed space that can’t reach anything else on your machine."},
+    {q:"Do I need to know how to code?",a:"No. You talk to it in plain English or Croatian, like asking a colleague to draft an invitation or clean up an attendee list."},
+    {q:"Can it see my private files?",a:"It works in the folder you open and asks before reaching outside it. The most private option is the web app at claude.ai/code, a sealed space that cannot reach anything else on your machine."},
     {q:"What if it makes a mistake?",a:"It can, like any assistant. That is why you review before using it, and if you spot something off, tell it plainly and it corrects it."},
     {q:"Is my data used to train it?",a:"On personal plans it is on by default, so switch it off: open claude.ai, go to Settings then Privacy, and turn off ‘Help improve Claude’. On a Team or Enterprise plan this is built in. Never put real patient-identifiable data into it."},
     {q:"What’s the difference between this and ChatGPT?",a:"ChatGPT mostly chats, and you copy text in and out. Claude Code does the work on your computer: it edits your spreadsheet, makes a Word file or PDF, and drafts the email."},
-    {q:"Can it write and translate in Croatian?",a:"Yes, including formal Croatian register for invitations, brochures, and official letters. Ask for both languages at once, and give names and titles a quick read."},
-    {q:"What kinds of things can it actually do for Med&X?",a:"Much of what the team does by hand today: sponsor outreach and speaker invitations, translations, conference programs and brochures, cleaning and counting registration spreadsheets, slide decks, certificates and badges, PDF summaries, and research for a bio."},
-    {q:"Do I need to install anything complicated or set it up myself?",a:"No, the setup is handled for you. Open it and type your request, and if it is not set up yet, ask Alen or the team channel."},
-    {q:"What if I get stuck or don’t know how to ask for something?",a:"Just ask it directly: “how would I get you to make a badge for each person in this list?” It explains and often offers to do it."}
+    {q:"Can it write and translate in Croatian?",a:"Yes, including formal Croatian register for invitations, brochures, and official letters. Ask for both languages at once, and give names and titles a quick read."}
   ];
   var faqList = document.getElementById("faqList");
   faqs.forEach(function(f){
@@ -2488,30 +1993,6 @@
       '<summary>' + esc(f.q) + '<span class="plus" aria-hidden="true"></span></summary>' +
       '<div class="answer">' + esc(f.a) + '</div>';
     faqList.appendChild(d);
-  });
-
-  /* ---------------- TRY-TODAY CHECKLIST ---------------- */
-  var checkItems = document.querySelectorAll("#checklist .check-item");
-  var progress = document.getElementById("checkProgress");
-  function updateProgress(){
-    var done = document.querySelectorAll("#checklist .check-item.done").length;
-    var total = checkItems.length;
-    var msg = "You’ve tried <strong>" + done + " of " + total + "</strong>. ";
-    if(done === 0) msg += "Pick any one, start small.";
-    else if(done < total) msg += "Lovely, keep going, you can’t break anything.";
-    else msg += "All five! You’re officially comfortable. Ask us anything next.";
-    progress.innerHTML = msg;
-  }
-  checkItems.forEach(function(item){
-    function toggle(){
-      var done = item.classList.toggle("done");
-      item.setAttribute("aria-checked", done ? "true" : "false");
-      updateProgress();
-    }
-    item.addEventListener("click", toggle);
-    item.addEventListener("keydown", function(e){
-      if(e.key === " " || e.key === "Enter"){ e.preventDefault(); toggle(); }
-    });
   });
 
   /* ---------------- HERO TYPED DEMO ---------------- */
