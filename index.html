@@ -92,8 +92,8 @@
     padding: 0 24px;
   }
 
-  section { position: relative; padding: 96px 0; }
-  @media (max-width: 720px){ section { padding: 68px 0; } }
+  section { position: relative; padding: 64px 0; }
+  @media (max-width: 720px){ section { padding: 48px 0; } }
 
   .eyebrow {
     display: inline-flex;
@@ -1183,6 +1183,96 @@
   .learn-prompt .ptxt span + span { border-top: 1px dashed var(--line-soft); }
 
   /* ============================================================
+     HERO CROATIAN ONE-LINER
+  ============================================================ */
+  .hero-cro { font-size: 13px; font-style: italic; color: var(--muted); margin: 14px 0 0; }
+
+  /* ============================================================
+     THE BASICS (3-STEP STEPPER)
+  ============================================================ */
+  .basics {
+    padding: 48px 0;
+    background: linear-gradient(180deg, rgba(232,239,241,.55), transparent);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .basics-head { text-align: center; margin-bottom: 30px; }
+  .basics-head h2 { font-size: clamp(24px, 3.4vw, 34px); margin-bottom: 4px; }
+  .basics-head p { color: var(--muted); font-size: 15.5px; margin: 0; }
+  .basics-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 760px){ .basics-steps { grid-template-columns: 1fr; } }
+  .basic-step {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  .basic-step .bn {
+    font-family: var(--display); font-weight: 600;
+    font-size: 36px; color: var(--accent); line-height: 1;
+  }
+  .basic-step .bic { position: absolute; top: 24px; right: 22px; color: var(--primary); opacity: .5; }
+  .basic-step h3 { font-size: 17px; margin: 14px 0 0; line-height: 1.32; }
+  .basic-arrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--accent-ink); font-size: 12.5px; font-weight: 600; margin-top: 9px;
+  }
+  .basics-more { text-align: center; margin-top: 26px; }
+  .basics-more a { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+  /* staggered pop-in (reuses .reveal IntersectionObserver + reduced-motion fallback) */
+  .basic-step.reveal { transform: translateY(18px) scale(.94); }
+  .basic-step.reveal.in { transform: none; }
+
+  /* ============================================================
+     WHAT IT IS: ICON CHIPS
+  ============================================================ */
+  .wi-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .wi-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 999px; padding: 10px 18px;
+    font-size: 15px; font-weight: 600; color: var(--text);
+    box-shadow: var(--shadow-sm);
+  }
+  .wi-chip svg { color: var(--accent-ink); flex: none; }
+
+  /* ============================================================
+     HOW IT FEELS: MINI CHAT BUBBLES
+  ============================================================ */
+  .feels-flow { display: flex; flex-direction: column; gap: 14px; max-width: 620px; margin: 0 auto; }
+  .fb {
+    padding: 14px 18px; border-radius: 16px;
+    font-size: 15.5px; line-height: 1.5; max-width: 88%;
+    box-shadow: var(--shadow-sm);
+  }
+  .fb-user { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 5px; }
+  .fb-bot { align-self: flex-start; background: #fff; border: 1px solid var(--line-soft); color: var(--text); border-bottom-left-radius: 5px; }
+  .fb-done { display: inline-flex; align-items: center; gap: 9px; }
+  .fb-check { color: #2E7D50; flex: none; animation: checkPulse 3s var(--ease) infinite; animation-play-state: paused; }
+  @keyframes checkPulse { 0%, 70% { transform: scale(1); } 80% { transform: scale(1.25); } 90% { transform: scale(1); } }
+  .typing { display: inline-flex; gap: 4px; vertical-align: middle; margin-right: 7px; }
+  .typing i {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--muted); display: block;
+    animation: typedot 1.4s var(--ease) infinite; animation-play-state: paused;
+  }
+  .typing i:nth-child(2){ animation-delay: .2s; }
+  .typing i:nth-child(3){ animation-delay: .4s; }
+  @keyframes typedot { 0%, 60%, 100% { opacity: .25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+  .feels-flow.in .typing i, .feels-flow.in .fb-check { animation-play-state: running; }
+
+  /* ============================================================
+     TRANSFORMATION STRIP: BEFORE STRIKE ON REVEAL
+  ============================================================ */
+  .tstrip-before { position: relative; transition: opacity .6s var(--ease); }
+  .tstrip-before::after {
+    content: ""; position: absolute; left: 0; right: 100%; top: 52%; height: 1.5px;
+    background: var(--muted); transition: right .7s var(--ease) .45s;
+  }
+  .tstrip-card.in .tstrip-before { opacity: .5; }
+  .tstrip-card.in .tstrip-before::after { right: 0; }
+
+  /* ============================================================
      SCROLL REVEAL
   ============================================================ */
   .reveal {
@@ -1205,6 +1295,10 @@
     .vig-langtag.hr { opacity: 0 !important; }
     .vig-spark { opacity: 0 !important; }
     .tstrip-fade { opacity: 1 !important; }
+    /* New animated pieces settle to a static, legible state */
+    .basic-step.reveal, .basic-step.reveal.in { opacity: 1 !important; transform: none !important; }
+    .typing i, .fb-check { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .tstrip-before::after { transition: none !important; }
   }
 
   /* ============================================================
@@ -1474,25 +1568,19 @@
       <div class="hero-copy">
         <span class="hero-badge"><span class="dot" aria-hidden="true"></span> A gentle introduction for the Med&amp;X team</span>
         <h1 id="hero-h">Hours of work, done in <span class="accent">minutes</span>.</h1>
-        <p class="hero-sub">This is Claude Code, a tireless assistant that lives on your computer. Tell it what you need in plain words, Croatian or English, and it does the work. Things that took an afternoon take minutes. <strong>No coding, no jargon.</strong></p>
-        <p class="hero-sub">It is a simple typing window, like a chat: open it as a website (nothing to install) or a small app, and type what you want. Don’t worry about the word “Code”, you will never write any code.</p>
-        <p class="hero-sub" style="font-size:15px; margin-bottom:22px;">New to this? It costs about $20 a month, you subscribe yourself, and you can simply try it and cancel any time. Ask in the team channel, no question is too small.</p>
-        <p class="hero-sub" style="font-style:italic; margin-bottom:28px;">Ukratko: ovo je pomoćnik kojem pišete običnim rečenicama (na hrvatskom ili engleskom) i on odradi posao, napiše e-mail, prevede brošuru, posloži tablicu. Ne treba nikakvo programiranje.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#first-steps">Your first five minutes →</a>
-          <a class="btn btn-ghost" href="#see-it-for-medx">See it on real tasks</a>
-        </div>
-        <div class="uc-prompt" id="heroFirstMsg" style="margin:0 0 26px; max-width:52ch;">
-          <div class="plabel">Paste this as your very first message</div>
-          <div class="ptxt" id="heroFirstMsgText">Write a warm, formal thank-you email in both English and Croatian to a speaker who just confirmed for the Plexus Conference.</div>
-          <div class="phint">No files needed, works on the first try. Change anything you like, and you have used Claude Code.</div>
-          <button class="copy-btn" id="heroCopyBtn" type="button" aria-label="Copy this text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy this text</span></button>
-        </div>
+        <p class="hero-sub">This is Claude Code. Tell it what you need in plain words and it does the work.</p>
         <div class="hero-moods">
           <span class="mood-chip">You can’t break anything</span>
           <span class="mood-chip">It always asks first</span>
           <span class="mood-chip">Close it any time</span>
           <span class="mood-chip">Nothing is sent without you</span>
+        </div>
+        <p class="hero-cro">Piše na hrvatskom i engleskom.</p>
+        <div class="uc-prompt" id="heroFirstMsg" style="margin:22px 0 0; max-width:52ch;">
+          <div class="plabel">Paste this as your very first message</div>
+          <div class="ptxt" id="heroFirstMsgText">Write a warm, formal thank-you email in both English and Croatian to a speaker who just confirmed for the Plexus Conference.</div>
+          <div class="phint">No files needed, works on the first try.</div>
+          <button class="copy-btn" id="heroCopyBtn" type="button" aria-label="Copy this text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy this text</span></button>
         </div>
       </div>
 
@@ -1522,6 +1610,37 @@
         <div class="demo-progress" id="demoProgress" aria-hidden="true">
           <b class="active"></b><b></b><b></b>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ THE BASICS ============================ -->
+  <section class="basics" aria-labelledby="basics-h">
+    <div class="wrap">
+      <div class="basics-head reveal">
+        <h2 id="basics-h">The basics</h2>
+        <p>Three steps, five minutes.</p>
+      </div>
+      <div class="basics-steps">
+        <div class="basic-step reveal">
+          <span class="bn">1</span>
+          <span class="bic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
+          <h3>It is a typing window. You write, it works.</h3>
+        </div>
+        <div class="basic-step reveal">
+          <span class="bn">2</span>
+          <span class="bic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <h3>Watch it: one sentence in, finished work out.</h3>
+          <a class="basic-arrow" href="#hero">See it live<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="basic-step reveal">
+          <span class="bn">3</span>
+          <span class="bic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+          <h3>Copy the message above, paste it, press Enter.</h3>
+        </div>
+      </div>
+      <div class="basics-more reveal">
+        <a href="#first-steps">Full setup steps<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </section>
@@ -1557,7 +1676,7 @@
         <div class="tstrip-card reveal">
           <div class="tstrip-task">Translating a brochure into formal Croatian</div>
           <div class="tstrip-ba" aria-hidden="true">
-            <span class="tstrip-before tstrip-fade" data-fade>days</span>
+            <span class="tstrip-before">days</span>
             <svg class="tstrip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
             <span class="tstrip-after">about <span data-count="20">0</span> <span class="u">min</span></span>
           </div>
@@ -1567,7 +1686,7 @@
         <div class="tstrip-card reveal">
           <div class="tstrip-task">Personalized greetings for 60 sponsors</div>
           <div class="tstrip-ba" aria-hidden="true">
-            <span class="tstrip-before tstrip-fade" data-fade>an evening</span>
+            <span class="tstrip-before">an evening</span>
             <svg class="tstrip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
             <span class="tstrip-after tstrip-fade" data-fade>one request</span>
           </div>
@@ -1577,7 +1696,7 @@
         <div class="tstrip-card reveal">
           <div class="tstrip-task">A registration page for an event</div>
           <div class="tstrip-ba" aria-hidden="true">
-            <span class="tstrip-before tstrip-fade" data-fade>couldn’t before</span>
+            <span class="tstrip-before">couldn’t before</span>
             <svg class="tstrip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
             <span class="tstrip-after tstrip-fade" data-fade>an afternoon of asking</span>
           </div>
@@ -1597,29 +1716,22 @@
       <div class="reveal">
         <span class="eyebrow">The plain-words version</span>
         <h2 class="section-title" id="wi-h">So… what actually is it?</h2>
-        <p class="section-lead">Like a brilliant, patient colleague at your computer who reads your files and does real tasks, just by asking in normal words.</p>
-      </div>
-
-      <div class="whatis-grid" style="margin-top:44px;">
-        <ul class="whatis-list reveal">
-          <li><span class="check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>An assistant that runs on your computer (or a private online workspace) and actually <strong>does</strong> things, not just chat: writes, translates, fixes spreadsheets, drafts emails, researches.</span></li>
-          <li><span class="check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>It opens and works with your real files: the registration list, the sponsor brochure, that 40-page PDF.</span></li>
-          <li><span class="check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>Made by <strong>Anthropic</strong>, an AI company. It can help with software too, but for us it is here for the everyday Med&amp;X work.</span></li>
-        </ul>
-
-        <aside class="mental reveal" aria-label="A mental model">
-          <p>Imagine the best assistant you have ever met, fluent in English and formal Croatian, working in seconds. Sit them at your computer, where they see your files. Ask for a formal Croatian invitation, or a cleaned and counted spreadsheet, and they do it.</p>
-        </aside>
+        <p class="section-lead">A patient colleague at your computer who reads your files and does real tasks, just by asking in normal words.</p>
+        <div class="wi-chips">
+          <span class="wi-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>Does the task, not just chat</span>
+          <span class="wi-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Works with your real files</span>
+          <span class="wi-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>Plain words, no code</span>
+        </div>
       </div>
 
       <!-- Misconceptions -->
-      <div class="reveal" style="margin-top:56px;">
-        <h3 style="font-size:clamp(22px,3vw,30px);">Let’s clear up a few common worries</h3>
+      <div class="reveal" style="margin-top:52px;">
+        <h3 style="font-size:clamp(22px,3vw,30px);">A few common worries</h3>
       </div>
       <div class="grid grid-2 myths">
-        <div class="myth reveal"><div class="m">I have to know how to code to use this.</div><div class="t">Not even a little. You type normal sentences, like messaging a colleague. Write an email, and you can use this.</div></div>
-        <div class="myth reveal"><div class="m">It’s just a chatbot that gives me text to copy and paste.</div><div class="t">It works with your actual files and produces finished documents, spreadsheets, and emails. It does the task, not just describes it.</div></div>
-        <div class="myth reveal"><div class="m">My work and our data get shared with the whole world.</div><div class="t">It works only in the private space you point it to, built by a company focused on safe AI. You choose what it sees and stay in charge.</div></div>
+        <div class="myth reveal"><div class="m">I must know how to code.</div><div class="t">No. Type normal sentences, like messaging.</div></div>
+        <div class="myth reveal"><div class="m">It just gives me text to paste.</div><div class="t">It makes finished files, not just words.</div></div>
+        <div class="myth reveal"><div class="m">Our data goes out to the world.</div><div class="t">It sees only what you point it to.</div></div>
       </div>
     </div>
   </section>
@@ -1632,7 +1744,7 @@
       <div class="reveal">
         <span class="eyebrow">What changes for you</span>
         <h2 class="section-title" id="wy-h">What changes for you and for Med&amp;X</h2>
-        <p class="section-lead">Less busywork and faster event prep, so the repetitive parts stop eating your evenings.</p>
+        <p class="section-lead">Less busywork, faster event prep.</p>
       </div>
 
       <div class="change-grid">
@@ -1644,7 +1756,7 @@
           <span class="sr-only">An illustration of a messy spreadsheet whose cells slide into neat rows, then a check mark appears.</span>
           <span class="change-tag">Faster</span>
           <h3>Faster</h3>
-          <p>The busywork of running Med&amp;X, in minutes instead of afternoons.</p>
+          <p>The busywork of running Med&amp;X, in minutes instead of afternoons. It even reads long PDFs and checks its own work.</p>
         </article>
 
         <article class="change-card reveal">
@@ -1678,15 +1790,6 @@
           <p>Things the team could not do before: a registration website, charts from a spreadsheet, a video script. You describe it, it builds it.</p>
         </article>
       </div>
-
-      <div class="reveal">
-        <h3 style="font-size:clamp(20px,2.6vw,26px); margin-top:56px;">A few more things it quietly does well</h3>
-      </div>
-      <div class="grid grid-3" style="margin-top:22px;">
-        <article class="card reveal"><div class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg></div><h3>It does the task, not just talks about it</h3><p>A normal chatbot gives you words to paste. This produces the finished file (Word, spreadsheet, email) on your computer, done.</p></article>
-        <article class="card reveal"><div class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><h3>It reads the long stuff so you don’t have to</h3><p>Drop in a 40-page paper or an hour of notes and ask for the three things that matter. It summarizes and researches in minutes.</p></article>
-        <article class="card reveal"><div class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6z"/></svg></div><h3>It works step-by-step and checks itself</h3><p>For multi-part jobs it plans, does each step, and checks its own work before calling it done.</p></article>
-      </div>
     </div>
   </section>
 
@@ -1698,7 +1801,7 @@
       <div class="reveal">
         <span class="eyebrow">Real Med&amp;X tasks</span>
         <h2 class="section-title" id="sc-h">See it work on real Med&amp;X tasks</h2>
-        <p class="section-lead">Real before-and-after examples, each with a ready-made request you can copy and try today.</p>
+        <p class="section-lead">Real before-and-after examples, each with a request you can copy today.</p>
       </div>
 
       <div class="usecases-grid" id="ucGrid" style="margin-top:44px;"></div>
@@ -1714,7 +1817,7 @@
         </span>
         <div class="portal-body">
           <h3 id="px-h">Running Med&amp;X events?</h3>
-          <p>The routine event work (emails, check-in, invoices, newsletters) already lives in the Med&amp;X admin portal. No Claude Code needed there.</p>
+          <p>The routine event work (emails, check-in, invoices, newsletters) already lives in the Med&amp;X admin portal. No Claude Code needed there. The live portal can take about 30 seconds to wake up the first time you open it.</p>
         </div>
         <a class="btn btn-primary portal-cta" href="https://alen-ops99.github.io/medx-admin-portal-guide/" target="_blank" rel="noopener">See what the portal can do
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
@@ -1728,13 +1831,15 @@
   <!-- ======================= HOW IT FEELS ======================= -->
   <section id="how-it-feels" class="band" aria-labelledby="hf-h">
     <div class="wrap">
-      <div class="reveal" style="text-align:center; margin-bottom:36px;">
+      <div class="reveal" style="text-align:center; margin-bottom:34px;">
         <span class="eyebrow" style="justify-content:center;">It’s just a conversation</span>
         <h2 class="section-title" id="hf-h" style="margin-inline:auto;">It’s just a conversation</h2>
-        <p class="section-lead" style="margin-inline:auto;">You type plainly, it asks if unsure, and shows you the result. No commands to memorize.</p>
+        <p class="section-lead" style="margin-inline:auto;">You ask, it checks, you accept.</p>
       </div>
-      <div class="feels reveal">
-        <p class="lead-drop">Day to day, it feels less like software and more like delegating to a very good assistant. You type “write a Croatian thank-you note to last week’s speakers” or “merge these attendee exports and count the doctors from Split,” and a moment later it’s done, file right there. Ask for a tweak (“more formal,” “add the dinner details”) and it adjusts instantly.</p>
+      <div class="feels-flow reveal">
+        <div class="fb fb-user">Write a Croatian thank-you to last week’s speakers.</div>
+        <div class="fb fb-bot"><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>Formal tone, or add the dinner details?</div>
+        <div class="fb fb-bot fb-done"><svg class="fb-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Done. Your file is ready to review.</div>
       </div>
     </div>
   </section>
@@ -1747,7 +1852,7 @@
       <div class="reveal">
         <span class="eyebrow">Learn it as you go</span>
         <h2 class="section-title" id="hl-h">How you learn it</h2>
-        <p class="section-lead">No course needed. You learn it by using it, and five habits are the whole method.</p>
+        <p class="section-lead">Learn it by using it: five habits, no course.</p>
       </div>
 
       <div class="habits">
@@ -1801,19 +1906,16 @@
       <div class="reveal">
         <span class="eyebrow">Trust &amp; safety</span>
         <h2 class="section-title" id="ts-h">Is it safe? Yes, here’s how</h2>
-        <p class="section-lead">A human always stays in charge. Here are the simple habits that keep everything private and correct.</p>
+        <p class="section-lead">A human always stays in charge.</p>
       </div>
 
       <div class="safety-grid" style="margin-top:40px;">
         <ul class="safety-list reveal">
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span>Read every AI-written email or message before you send it. Treat each as a smart first draft. You hit send, and your name is on it.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><span>Never paste patient-identifiable information (names, dates of birth, OIB, medical record numbers, diagnoses tied to a real person) into any task. Med&amp;X handles conference and sponsor work, not patient care. This protects privacy and keeps you GDPR-compliant.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span>Double-check every fact before it goes out: titles, affiliations, dates, venues, prices, deadlines. AI can sound confident and still be slightly off.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span>Verify the numbers it produces: counts, budget totals, headcounts. Ask it to show its working, or spot-check a few rows.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1"/><circle cx="9" cy="7" r="3"/><path d="M22 19v-1a4 4 0 0 0-3-3.87"/><path d="M16 4.13a4 4 0 0 1 0 7.75"/></svg></span><span>For anything official (invitations, brochures, certificates, sponsor translations), have a second person glance before printing or sending.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Keep confidential contracts, financials, and personal team data out of places they shouldn’t go, and ask if you’re unsure.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg></span><span>Be skeptical of surprising claims about facts or people. Confirm a bio or research background from a real source before using it publicly.</span></li>
-          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/></svg></span><span>When it offers to delete, overwrite, or move files, read what it will do first. It always asks.</span></li>
+          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span>Read every AI-written email before you send it. You hit send, and your name is on it.</span></li>
+          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><span>Never paste patient-identifiable data (names, dates of birth, OIB, medical record numbers, diagnoses). Med&amp;X does conference and sponsor work, not patient care, which keeps you GDPR-safe.</span></li>
+          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span>Double-check facts and numbers before they go out: titles, dates, prices, counts. AI can sound confident and be slightly off.</span></li>
+          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1"/><circle cx="9" cy="7" r="3"/><path d="M22 19v-1a4 4 0 0 0-3-3.87"/><path d="M16 4.13a4 4 0 0 1 0 7.75"/></svg></span><span>For anything official (invitations, brochures, certificates), have a second person glance before sending.</span></li>
+          <li><span class="shield" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Keep confidential contracts, financials, and personal team data out of places they should not go. Ask if unsure.</span></li>
         </ul>
 
         <aside class="privacy-note reveal" aria-label="You stay in control">
@@ -1823,7 +1925,7 @@
           <ul>
             <li>It works in the folder you open and asks permission before reaching outside it</li>
             <li>It asks before deleting or overwriting anything</li>
-            <li>Turn off “Help improve Claude” in claude.ai Settings → Privacy so your work is never used to help improve the AI (this is automatic on a Team or Enterprise plan)</li>
+            <li>Turn off “Help improve Claude” in claude.ai Settings, then Privacy, so your work is never used to help improve the AI (this is automatic on a Team or Enterprise plan)</li>
             <li>No real patient data, ever, only conference and sponsor work</li>
           </ul>
         </aside>
@@ -1839,13 +1941,13 @@
       <div class="reveal">
         <span class="eyebrow">Your first five minutes</span>
         <h2 class="section-title" id="fs-h">Get started, the easiest way first</h2>
-        <p class="section-lead">The simplest first try needs nothing installed: start in your web browser (Chrome or Safari), then make the desktop app your everyday tool. The terminal option is only for tech-minded people.</p>
+        <p class="section-lead">Start in your web browser, nothing to install.</p>
       </div>
 
       <!-- Plans -->
       <div class="reveal" style="margin-top:38px;">
         <h3 style="font-size:22px;">First, the account</h3>
-        <p style="color:var(--muted); max-width:66ch;">Think of it as a monthly subscription for a very capable assistant. Claude Code does <strong>not</strong> work on the free plan, so each person makes a free account at claude.ai and upgrades it to Pro. Pro costs about $20 a month, you subscribe yourself, and can cancel any time. Later, Med&amp;X may move everyone onto a single Team plan with one central bill and the privacy protection above for everyone. Prices are set by Anthropic and may change, so confirm the current number on the <a href="https://claude.ai/pricing" target="_blank" rel="noopener">Claude pricing page</a>.</p>
+        <p style="color:var(--muted); max-width:66ch;">Claude Code does <strong>not</strong> work on the free plan, so make a free account at claude.ai and upgrade to Pro. Pro is about $20 a month, you subscribe yourself, and can cancel any time. Confirm the current price on the <a href="https://claude.ai/pricing" target="_blank" rel="noopener">Claude pricing page</a>.</p>
       </div>
       <div class="plans reveal">
         <div class="plan reco">
@@ -1874,7 +1976,7 @@
           <li>Click “Sign up”, enter your email, and pick a password (or “Continue with Google”).</li>
           <li>Claude emails a short code. Type it back into the page.</li>
           <li>You now have a free account. It does not include Claude Code, so you upgrade next.</li>
-          <li>Click your name or initial (bottom-left), choose “Settings”, then “Billing”, and pick “Pro”. It is about $20 a month, you subscribe yourself, and can cancel any time.</li>
+          <li>Click your name (bottom-left), choose “Settings”, then “Billing”, and pick “Pro”. About $20 a month, you subscribe yourself, cancel any time.</li>
         </ol>
       </div>
 
@@ -1891,7 +1993,7 @@
             <span class="path-num" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18"/><path d="M12 3c-3 3-3 15 0 18"/></svg></span>
             <div class="meta">
               <h3>Web App, nothing to install</h3>
-              <p class="best">The first try for anyone. Zero installation, working in under a minute. It runs in your web browser on Anthropic’s secure computers, never touching the files on your machine.</p>
+              <p class="best">The first try for anyone. Zero installation, working in under a minute. It runs on Anthropic’s secure computers, never touching your machine.</p>
             </div>
             <span class="badge easy">Start here</span>
           </div>
@@ -1900,7 +2002,7 @@
               <li>Open your web browser (Chrome or Safari).</li>
               <li>In the address bar, type <a class="code" href="https://claude.ai/code" target="_blank" rel="noopener">claude.ai/code</a> and press Enter.</li>
               <li>Sign in with the email and password you just made. (No account? Do “Make your account” above.)</li>
-              <li>One important switch, about 10 seconds. On claude.ai, click your name or initial (bottom-left), choose “Settings”, then “Privacy”, find “Help improve Claude” and tap the switch so it turns gray (off). Now your work is never used to help improve the AI. That is the only setting you need to touch.</li>
+              <li>One important switch, about 10 seconds. On claude.ai, click your name (bottom-left), choose “Settings”, then “Privacy”, find “Help improve Claude” and tap the switch off. Now your work is never used to improve the AI.</li>
               <li>That’s it, you’re inside Claude Code, nothing to download. Skip to the “first 60 seconds” walkthrough below.</li>
               <li>Optional: save the page to return in one click, with Ctrl+D (Windows), Cmd+D (Mac), or “Add to Home Screen” on a phone.</li>
             </ol>
@@ -1963,12 +2065,12 @@
         <span class="eyebrow">Your first 60 seconds</span>
         <h3 id="wt-h" style="font-size:clamp(22px,3vw,30px);">The very first thing to try: one small, real request</h3>
         <ul class="wt-timeline">
-          <li><span class="tt">0–10s</span><span class="tx">The app (or claude.ai/code tab) is open. You’ll see a welcome screen. If asked, sign in as usual.</span></li>
-          <li><span class="tt">10–25s</span><span class="tx">Now point it at your work. On the web app there is no folder: click the paperclip or “Upload” to add a file, or type a request that needs none. On the desktop app, click <strong>Select folder</strong> (choose “Local” if asked) and pick a folder you know. It never changes anything without showing you first.</span></li>
-          <li><span class="tt">25–40s</span><span class="tx">Find the message box at the bottom, like a chat box (WhatsApp, email). <strong>Tell</strong> Claude what you want, in plain words, Croatian or English.</span></li>
-          <li><span class="tt">40–50s</span><span class="tx">Type one small, real request and press Enter. A great first line needs no files: “Write a warm, formal thank-you note in English and Croatian to a speaker who just confirmed for Plexus.” Later, try one that uses a file: “Summarize the document in this folder in three bullet points.”</span></li>
-          <li><span class="tt">50–54s</span><span class="tx">It may reply with a question first, like “What should the note mention?” That is normal. Just answer in plain words.</span></li>
-          <li><span class="tt">54–60s</span><span class="tx">Claude shows exactly what it will do first. You get <strong>Accept</strong> and <strong>Reject</strong> buttons, and nothing saves until you click Accept. The finished file lands in the folder you opened (on the web app, a download appears). Not quite right? Say what to change, like “make it more formal,” and it redoes it. You just used Claude Code.</span></li>
+          <li><span class="tt">0–10s</span><span class="tx">The app or claude.ai/code tab is open. Sign in if asked.</span></li>
+          <li><span class="tt">10–25s</span><span class="tx">Point it at your work. On the web app, click <strong>Upload</strong> to add a file, or just type a request. On the desktop app, click <strong>Select folder</strong> and pick one you know.</span></li>
+          <li><span class="tt">25–40s</span><span class="tx">Find the message box at the bottom, like a chat. <strong>Tell</strong> Claude what you want, in plain words.</span></li>
+          <li><span class="tt">40–50s</span><span class="tx">Type one small, real request and press Enter, like: “Write a warm, formal thank-you note in English and Croatian to a speaker who just confirmed for Plexus.”</span></li>
+          <li><span class="tt">50–54s</span><span class="tx">It may ask a question first, like “What should the note mention?” Just answer in plain words.</span></li>
+          <li><span class="tt">54–60s</span><span class="tx">Claude shows what it will do, with <strong>Accept</strong> and <strong>Reject</strong> buttons, and nothing saves until you click Accept. Not quite right? Say what to change. You just used Claude Code.</span></li>
         </ul>
       </div>
     </div>
@@ -1982,7 +2084,7 @@
       <div class="reveal">
         <span class="eyebrow">Try this today</span>
         <h2 class="section-title" id="tt2-h">Five tiny things to try today</h2>
-        <p class="section-lead">Tick them off as you go. Each takes under two minutes.</p>
+        <p class="section-lead">Each takes under two minutes.</p>
       </div>
 
       <div class="checklist reveal" id="checklist" style="margin-top:40px;">
@@ -2032,9 +2134,9 @@
       <div class="cta reveal">
         <span class="eyebrow" style="justify-content:center;">Come try it</span>
         <h2 id="ci-h">Come try it, we’ll help you</h2>
-        <p>You’re never stuck alone. The fastest help is to ask Claude Code itself: type “how do I get you to make a name badge for everyone in this list?” and it’ll explain and usually offer to do it. Your first move: open claude.ai/code, sign in, and paste one sentence, like “Write a warm, formal Croatian thank-you note to a speaker who just confirmed for Plexus.” Read it, change anything you like, and you are off.</p>
+        <p>You’re never stuck alone. Open claude.ai/code, sign in, and paste one sentence, like “Write a warm, formal Croatian thank-you note to a speaker who just confirmed for Plexus.” Read it, change anything you like, and you are off.</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#first-steps">Start with your first five minutes →</a>
+          <a class="btn btn-primary" href="#first-steps">Start with your first five minutes <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn-ghost" href="#see-it-for-medx">Browse real examples</a>
         </div>
         <div class="contact-card">
@@ -2363,18 +2465,18 @@
 
   /* ---------------- FAQ ---------------- */
   var faqs = [
-    {q:"Is it safe to use?",a:"Yes. It runs on your computer, or a private web workspace only you can open, and asks before changing or deleting a file. The main rule for us: read what it writes before sending, and never put real patient information into it."},
-    {q:"Will it delete my files?",a:"Not on its own. If a task involves deleting or replacing a file, it tells you first and waits for your yes. You can also say “don’t delete anything, only create new files.”"},
-    {q:"Do I need to know how to code?",a:"No. You talk to it in plain English or Croatian, like asking a colleague: “draft a speaker invitation,” “clean up this attendee list.” Coding is just one thing it can do, and not the part that matters for us."},
-    {q:"Does it cost money?",a:"Yes, about $20 a month for Claude Pro. Each person uses their own account and subscribes themselves, and can cancel any time."},
-    {q:"Can it see my private files?",a:"It works in the folder you open and asks before reaching outside it. The most private option is the web app at claude.ai/code, a sealed space on Anthropic’s computers that can’t reach anything else on your machine."},
-    {q:"What if it makes a mistake?",a:"It can, like any assistant: a wrong date, an awkward phrase, a miscounted total. That’s why you review before using it. Spot something off? Tell it plainly (“the gala is December 5, fix that everywhere”) and it corrects it."},
-    {q:"Is my data used to train it?",a:"On the personal plans (Free, Pro, Max) it is on by default, so switch it off yourself. It takes about ten seconds: open claude.ai, click your name or initial (bottom-left), choose Settings, then Privacy, and turn off ‘Help improve Claude’. On a Team or Enterprise plan this protection is built in. Either way, never put real patient-identifiable data into it."},
-    {q:"What’s the difference between this and ChatGPT?",a:"ChatGPT mostly chats, and you copy text in and out. Claude Code does the work on your computer: it edits your spreadsheet, creates a Word file or PDF, summarizes a long paper, drafts an email. Less chatbot, more an assistant at your desk who can use your files."},
-    {q:"Can it write and translate in Croatian?",a:"Yes, including formal Croatian register for invitations, brochures, and official letters. Ask for both languages in one go, or a translation that keeps the formatting. Always give it a quick read, especially names and titles."},
-    {q:"What kinds of things can it actually do for Med&X?",a:"Much of what the team does by hand today: sponsor outreach and speaker invitations, thank-you notes and follow-ups, document translation, conference programs and brochures, cleaning and counting registration spreadsheets, personalized greetings for dozens of sponsors, slide decks, certificates and name badges, PDF summaries, and background research for a bio."},
-    {q:"Do I need to install anything complicated or set it up myself?",a:"No, the setup is handled for you. When you sit at a computer that has it, just open it and type your request. Not set up yet? Ask Alen or the team channel, it’s a one-time thing."},
-    {q:"What if I get stuck or don’t know how to ask for something?",a:"Just ask it directly: “how would I get you to make a badge for each person in this list?” It’ll explain and often offer to do it. When stuck, describe the end result and let it work out the how."}
+    {q:"Is it safe to use?",a:"Yes. It runs on your computer or a private web workspace, and asks before changing or deleting a file. Our rules: read what it writes before sending, and never put real patient information into it."},
+    {q:"Will it delete my files?",a:"Not on its own. It tells you first and waits for your yes, and you can say to only create new files and delete nothing."},
+    {q:"Do I need to know how to code?",a:"No. You talk to it in plain English or Croatian, like asking a colleague to draft an invitation or clean up an attendee list."},
+    {q:"Does it cost money?",a:"Yes, about $20 a month for Claude Pro. Each person subscribes themselves and can cancel any time."},
+    {q:"Can it see my private files?",a:"It works in the folder you open and asks before reaching outside it. The most private option is the web app at claude.ai/code, a sealed space that can’t reach anything else on your machine."},
+    {q:"What if it makes a mistake?",a:"It can, like any assistant. That is why you review before using it, and if you spot something off, tell it plainly and it corrects it."},
+    {q:"Is my data used to train it?",a:"On personal plans it is on by default, so switch it off: open claude.ai, go to Settings then Privacy, and turn off ‘Help improve Claude’. On a Team or Enterprise plan this is built in. Never put real patient-identifiable data into it."},
+    {q:"What’s the difference between this and ChatGPT?",a:"ChatGPT mostly chats, and you copy text in and out. Claude Code does the work on your computer: it edits your spreadsheet, makes a Word file or PDF, and drafts the email."},
+    {q:"Can it write and translate in Croatian?",a:"Yes, including formal Croatian register for invitations, brochures, and official letters. Ask for both languages at once, and give names and titles a quick read."},
+    {q:"What kinds of things can it actually do for Med&X?",a:"Much of what the team does by hand today: sponsor outreach and speaker invitations, translations, conference programs and brochures, cleaning and counting registration spreadsheets, slide decks, certificates and badges, PDF summaries, and research for a bio."},
+    {q:"Do I need to install anything complicated or set it up myself?",a:"No, the setup is handled for you. Open it and type your request, and if it is not set up yet, ask Alen or the team channel."},
+    {q:"What if I get stuck or don’t know how to ask for something?",a:"Just ask it directly: “how would I get you to make a badge for each person in this list?” It explains and often offers to do it."}
   ];
   var faqList = document.getElementById("faqList");
   faqs.forEach(function(f){
