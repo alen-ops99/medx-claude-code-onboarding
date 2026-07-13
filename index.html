@@ -357,6 +357,16 @@
     font-style: italic;
     font-weight: 500;
   }
+  .hero-answer {
+    font-family: var(--display);
+    font-size: clamp(21px, 3vw, 32px);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.16;
+    color: var(--primary);
+    max-width: 20ch;
+    margin: -8px 0 18px;
+  }
   .hero-sub {
     font-size: clamp(17px, 2.1vw, 20px);
     color: var(--muted);
@@ -649,40 +659,68 @@
   @media (max-width: 680px){ .usecases-grid { grid-template-columns: 1fr; } }
 
   .uc {
+    --uc-strong: var(--primary);
+    --uc-soft: #E8EFF1;
+    --uc-ink: var(--primary);
+    --uc-shadow: rgba(31,78,95,.18);
+    position: relative;
     display: flex; flex-direction: column;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
+    padding-bottom: 6px;
     transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
   }
-  .uc:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-soft); }
-  .uc-head { padding: 22px 22px 0; }
+  .uc::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--uc-strong);
+  }
+  .uc:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 42px var(--uc-shadow), 0 4px 12px rgba(26,43,51,.05);
+    border-color: var(--line-soft);
+  }
+  .uc.h-teal    { --uc-strong:#2C6577; --uc-soft:#E3EEF0; --uc-ink:#245361; --uc-shadow:rgba(44,101,119,.24); }
+  .uc.h-apricot { --uc-strong:#C06A34; --uc-soft:#F7E6D6; --uc-ink:#9C4E17; --uc-shadow:rgba(192,106,52,.24); }
+  .uc.h-sage    { --uc-strong:#4E7B5C; --uc-soft:#E4EDE4; --uc-ink:#3C6047; --uc-shadow:rgba(78,123,92,.24); }
+  .uc.h-plum    { --uc-strong:#7B5285; --uc-soft:#EEE3EF; --uc-ink:#61406C; --uc-shadow:rgba(123,82,133,.24); }
+  .uc.h-sand    { --uc-strong:#8C6D2F; --uc-soft:#F1E7D2; --uc-ink:#6C521E; --uc-shadow:rgba(140,109,47,.24); }
+
+  .uc-top { display: flex; gap: 13px; align-items: flex-start; padding: 20px 20px 0; }
   .uc-ic {
-    width: 48px; height: 48px; border-radius: 13px;
-    display: grid; place-items: center; font-size: 24px;
-    background: linear-gradient(135deg, var(--g3), var(--g4));
-    color: var(--accent-ink);
-    margin-bottom: 14px;
+    flex: none; width: 40px; height: 40px; border-radius: 11px;
+    display: grid; place-items: center;
+    background: var(--uc-strong); color: #fff;
+    box-shadow: 0 4px 12px var(--uc-shadow);
   }
-  .uc h3 { font-size: 19px; margin-bottom: 6px; line-height: 1.2; }
-  .uc .who {
-    font-size: 12px; font-weight: 600; color: var(--accent-ink);
-    letter-spacing: .02em; margin-bottom: 14px;
+  .uc-ic svg { width: 20px; height: 20px; }
+  .uc-head-txt { min-width: 0; }
+  .uc h3 { font-size: 19px; line-height: 1.2; margin: 1px 0 8px; }
+  .uc-who {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--uc-ink); background: var(--uc-soft);
+    padding: 3px 9px; border-radius: 999px;
   }
-  .uc-ba { padding: 0 22px 4px; }
-  .ba-row { display: flex; gap: 12px; padding: 12px 0; }
-  .ba-row + .ba-row { border-top: 1px dashed var(--line-soft); }
-  .ba-tag {
-    flex: none; font-size: 10.5px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; padding: 4px 8px; border-radius: 6px; height: fit-content;
-    margin-top: 2px;
+  .uc-star {
+    margin: 15px 20px 0; padding: 0;
+    font-size: 15px; font-weight: 600; line-height: 1.4;
+    color: var(--text);
   }
-  .ba-tag.before { color:var(--accent-ink); background: rgba(224,139,84,.13); }
-  .ba-tag.after  { color: var(--primary); background: rgba(31,78,95,.1); }
-  .ba-text { font-size: 14px; color: var(--muted); line-height: 1.55; }
-  .ba-row.after .ba-text { color: var(--text); }
+  .uc-ba {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 9px;
+    margin: 12px 20px 2px;
+  }
+  .uc-before {
+    font-size: 12.5px; color: #64727A;
+    text-decoration: line-through;
+    text-decoration-color: rgba(100,114,122,.55);
+  }
+  .uc-arrow { flex: none; color: var(--uc-strong); }
+  .uc-after { font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.35; }
 
   .uc-prompt {
     margin: 8px 22px 0;
@@ -717,15 +755,6 @@
   .copy-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
   .copy-btn.copied { background: #E9F3EC; color: #2E7D50; border-color: #B9DEC6; }
   .copy-btn svg { width: 15px; height: 15px; }
-
-  .uc-payoff {
-    margin-top: auto; padding: 16px 22px;
-    background: rgba(220,234,236,.4);
-    border-top: 1px solid var(--line-soft);
-    font-size: 13.5px; color: var(--text);
-    display: flex; gap: 9px; align-items: flex-start;
-  }
-  .uc-payoff .spark { flex:none; color: var(--accent-ink); display:grid; place-items:center; margin-top:1px; }
 
   /* ============================================================
      TRUST & SAFETY
@@ -1008,6 +1037,13 @@
   .tstrip-cap {
     margin: 18px 0 0; text-align: center;
     font-size: 12.5px; color: var(--muted); font-style: italic;
+  }
+  .tstrip-title {
+    text-align: center;
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(20px, 2.6vw, 26px);
+    color: var(--text);
+    margin: 0 0 22px;
   }
 
   /* ============================================================
@@ -1383,7 +1419,7 @@
   }
   .srow-ic { flex: none; width: 32px; height: 32px; border-radius: 9px; background: rgba(31,78,95,.1); color: var(--primary); display: grid; place-items: center; }
 
-  .uc-ex { margin: 0 22px 4px; border-top: 1px dashed var(--line-soft); }
+  .uc-ex { margin: 14px 20px 6px; margin-top: auto; border-top: 1px dashed var(--line-soft); }
   .uc-ex > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 13px 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); }
   .uc-ex > summary::-webkit-details-marker { display: none; }
   .uc-ex .exchev { margin-left: auto; flex: none; color: var(--muted); transition: transform .3s var(--ease); }
@@ -1418,9 +1454,10 @@
     <div class="hero-mesh" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <span class="hero-badge"><span class="dot" aria-hidden="true"></span> A gentle introduction for the Med&amp;X team</span>
-        <h1 id="hero-h">Hours of work, done in <span class="accent">minutes</span>.</h1>
-        <p class="hero-sub">This is Claude Code. Tell it what you need in plain words and it does the work.</p>
+        <span class="hero-badge"><span class="dot" aria-hidden="true"></span> For everyone at Med&amp;X drowning in emails, translations, and spreadsheets</span>
+        <h1 id="hero-h">Your week has too much busywork in it.</h1>
+        <p class="hero-answer">Claude Code does it for you, in minutes.</p>
+        <p class="hero-sub">Tell it what you need in plain words, and it does the work.</p>
         <div class="hero-moods">
           <span class="mood-chip">You can’t break anything</span>
           <span class="mood-chip">It always asks first</span>
@@ -1505,7 +1542,7 @@
         <div>
           <p class="nottech-objection">&ldquo;I am not a technical person.&rdquo;</p>
           <p class="nottech-answer"><strong>Perfect. This was made for you.</strong> If you can send a WhatsApp message, you can do everything on this page.</p>
-          <p class="nottech-proof">And it already works for us: the Med&amp;X member portal, our sponsor emails, and this very page were all made with Claude Code.</p>
+          <p class="nottech-proof">The Med&amp;X member portal, our sponsor emails, and this very page were all made with Claude Code.</p>
         </div>
       </div>
     </div>
@@ -1514,6 +1551,7 @@
   <!-- ===================== TRANSFORMATION STRIP ===================== -->
   <section class="tstrip" aria-label="What changes, at a glance">
     <div class="wrap">
+      <p class="tstrip-title reveal">This is what changes.</p>
       <div class="tstrip-grid">
 
         <div class="tstrip-card reveal">
@@ -1569,7 +1607,7 @@
       <div class="reveal">
         <span class="eyebrow">Real Med&amp;X tasks</span>
         <h2 class="section-title" id="sc-h">See it work on real Med&amp;X tasks</h2>
-        <p class="section-lead">Real before-and-after examples, each with a request you can copy today.</p>
+        <p class="section-lead">Real Med&amp;X work, before and after.</p>
       </div>
 
       <div class="usecases-grid" id="ucGrid" style="margin-top:44px;"></div>
@@ -1585,7 +1623,8 @@
         </span>
         <div class="portal-body">
           <h3 id="px-h">Running Med&amp;X events?</h3>
-          <p>The routine event work (emails, check-in, invoices, newsletters) already lives in the Med&amp;X admin portal. No Claude Code needed there. The live portal can take about 30 seconds to wake up the first time you open it.</p>
+          <p>Routine event work (emails, check-in, invoices, newsletters) already lives in the Med&amp;X admin portal. No Claude Code needed.</p>
+          <p style="margin-top:8px;">The live portal may take about 30 seconds to wake the first time.</p>
         </div>
         <a class="btn btn-primary portal-cta" href="https://alen-ops99.github.io/medx-admin-portal-guide/" target="_blank" rel="noopener">See what the portal can do
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
@@ -1854,19 +1893,19 @@
     calendar:  ucIcon('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 3v4"/><path d="M16 3v4"/>')
   };
   var cases = [
-    {icon:ICONS.envelope,title:"Write the sponsor email you keep putting off",who:"Sponsorship organizers",before:"An empty draft, rewritten three times, still unsure.",after:"Claude writes a polished email in seconds and revises on request.",prompt:"Napiši toplu, profesionalnu e-poštu potencijalnom sponzoru za našu Plexus konferenciju. Prvi put se obraćamo hrvatskoj farmaceutskoj tvrtki. Neka bude ispod 200 riječi, samouvjereno ali nenametljivo, i završi pozivom na kratak poziv. Potpiši u ime Med&X sponzorskog tima.",payoff:"A ready-to-send email in a minute, not half an hour of second-guessing."},
-    {icon:ICONS.globe,title:"Turn any document into formal Croatian (or English)",who:"Anyone preparing bilingual materials",before:"Free translators give clunky Croatian that embarrasses you with sponsors.",after:"Claude gives formal Croatian in proper register, layout intact.",prompt:"Uzmi pozivno pismo iz mape Dokumenti i izradi njegovu formalnu hrvatsku verziju. Koristi uljudan, profesionalan ton primjeren za poziv uglednom liječniku da održi izlaganje. Zadrži isti izgled i spremi kao novi Word dokument pokraj izvornika.",payoff:"A publication-quality bilingual document in minutes."},
-    {icon:ICONS.contacts,title:"Personalize 60 sponsor greetings",who:"Sponsorship outreach",before:"Sixty tailored opening lines by hand is an afternoon of copy-paste.",after:"Claude writes a unique greeting per sponsor, into a new column.",prompt:"Open my sponsors spreadsheet in Downloads. For each company in the list, write one warm, personalized opening sentence in Croatian that we can use to start an outreach email, mentioning something specific about that company. Put each greeting in a new column next to the company name and save the file.",payoff:"An afternoon of copy-paste becomes two minutes."},
-    {icon:ICONS.book,title:"Summarize a long PDF to what matters",who:"Anyone with too much to read",before:"A 40-page report lands in your inbox, unread for days.",after:"Claude reads it all and returns clear bullets or a specific answer.",prompt:"Read the PDF report in my Downloads folder and give me the five most important points in plain English, plus any deadlines or decisions we need to act on.",payoff:"An hour of reading becomes a 30-second summary."},
-    {icon:ICONS.doc,title:"Build a polished conference program document",who:"Program & logistics organizers",before:"You wrestle Word for hours, redoing the layout on every change.",after:"Claude builds a formatted program with session tables and times.",prompt:"Here are my rough notes for the Plexus Conference day-one schedule. Turn them into a clean, professional conference program as a Word document, with a title page, session times in a table, speaker names, and talk titles. Make it look polished enough to send to attendees.",payoff:"A print-ready program in minutes, updated instantly."},
-    {icon:ICONS.table,title:"Clean up a messy registration list",who:"Registration & attendee-management organizers",before:"A messy export: duplicate names, odd capitalization, blank cells.",after:"Claude fixes capitalization, removes duplicates, and hands back a tidy sheet.",prompt:"Open my registration list spreadsheet from Downloads. Remove duplicate entries, fix the capitalization of names and cities, standardize how the roles are written (doctor, student, organizer), and save a cleaned-up copy. Tell me how many rows you removed.",payoff:"A clean, reliable attendee list in minutes."},
-    {icon:ICONS.chart,title:"Count who’s coming, by city and by role",who:"Organizers reporting numbers",before:"“How many doctors from Zagreb?” means counting rows by hand.",after:"Ask in plain English and Claude returns the counts by city and role.",prompt:"Look at my registration spreadsheet in Downloads and tell me how many people registered from each city, and how many are doctors versus students versus other. Give me a clean summary table I can paste into an email.",payoff:"Instant, accurate answers to any “how many” question."},
-    {icon:ICONS.slides,title:"Make a pitch deck for a talk or sponsor meeting",who:"Anyone giving a talk or pitch",before:"Slides from scratch eat an evening and still look homemade.",after:"Claude builds a clean deck: structure, titles, and talking points.",prompt:"Build me a 10-slide pitch deck to present Med&X and the Plexus Conference to a potential sponsor. Cover who we are, what Plexus is, our audience of doctors and medical students, past highlights, and the sponsorship opportunity. Make it look clean and professional.",payoff:"A polished deck in minutes that looks professionally made."},
-    {icon:ICONS.award,title:"Generate certificates for every attendee",who:"Post-event & certification organizers",before:"Hundreds of certificates, each name edited by hand.",after:"Claude produces a print-ready certificate per person, correctly spelled.",prompt:"Using the attendee list in my Documents folder, create a personalized participation certificate for each person for the Plexus Conference. Include their full name, the event name, and the date. Make them look elegant and give me all of them as PDFs ready to print.",payoff:"Hundreds of flawless certificates in one go."},
-    {icon:ICONS.search,title:"Research a speaker for a bio or intro",who:"Anyone writing bios or intros",before:"Ten tabs, piecing together credentials. Easy to miss something.",after:"Claude researches and drafts a clean bio or spoken intro to check.",prompt:"I need a short, warm speaker introduction for our Plexus Conference for a doctor named [name] from [hospital or university]. Research their background and write a 30-second spoken introduction highlighting their main achievements, in an engaging tone for the audience.",hint:"Replace the [brackets] with the real details before you press Enter.",payoff:"A ready-to-read introduction in a minute, not scattered tabs."},
-    {icon:ICONS.megaphone,title:"Write social posts to announce the conference",who:"Anyone on social media",before:"A LinkedIn post and an Instagram caption, each in its own tone.",after:"Claude writes both, each tuned, plus a Croatian version.",prompt:"Write me two social media posts announcing that registration for the Plexus Conference is now open. One for LinkedIn (professional, a bit longer) and one for Instagram (punchy, friendly, with hashtags). Make them exciting and include a call to register. Give me a Croatian version of each as well.",payoff:"Platform-perfect posts in both languages in under a minute."},
-    {icon:ICONS.calendar,title:"Plan the day-of schedule and logistics",who:"Event-day logistics leads",before:"Scattered notes on rooms, slots, and who does what.",after:"Claude builds a minute-by-minute plan: what, when, which room, who.",prompt:"Here are my rough notes for our conference day: doors open 8:30, opening at 9, three morning talks, lunch, two afternoon sessions, closing at 5. Build me a clear minute-by-minute plan for the day as a document, with room assignments and a column for who is responsible for each part. Flag any timing that looks too tight.",payoff:"A calm minute-by-minute plan that reshuffles when things change."},
-    {icon:ICONS.book,title:"Help with your own doctor and student work",who:"Any Med&X doctor or student",before:"A dense article to read and a letter to write, both waiting.",after:"Claude summarizes the paper in bullets and drafts a warm letter.",prompt:"Summarize this journal article in plain language in five bullet points, then draft a short recommendation letter for a student based on the notes in this folder.",payoff:"Dense reading and blank-page tasks become minutes of reviewing."}
+    {icon:ICONS.envelope,title:"Write the sponsor email you keep putting off",who:"Sponsorship organizers",before:"An empty draft, rewritten three times.",after:"A polished email in seconds.",prompt:"Napiši toplu, profesionalnu e-poštu potencijalnom sponzoru za našu Plexus konferenciju. Prvi put se obraćamo hrvatskoj farmaceutskoj tvrtki. Neka bude ispod 200 riječi, samouvjereno ali nenametljivo, i završi pozivom na kratak poziv. Potpiši u ime Med&X sponzorskog tima.",payoff:"A ready-to-send email in a minute, not half an hour of second-guessing."},
+    {icon:ICONS.globe,title:"Turn any document into formal Croatian (or English)",who:"Anyone preparing bilingual materials",before:"Clunky free-tool Croatian that embarrasses you.",after:"Proper formal register, layout kept intact.",prompt:"Uzmi pozivno pismo iz mape Dokumenti i izradi njegovu formalnu hrvatsku verziju. Koristi uljudan, profesionalan ton primjeren za poziv uglednom liječniku da održi izlaganje. Zadrži isti izgled i spremi kao novi Word dokument pokraj izvornika.",payoff:"A publication-quality bilingual document in minutes."},
+    {icon:ICONS.contacts,title:"Personalize 60 sponsor greetings",who:"Sponsorship outreach",before:"Sixty greetings by hand, a whole afternoon.",after:"A unique line per sponsor, done.",prompt:"Open my sponsors spreadsheet in Downloads. For each company in the list, write one warm, personalized opening sentence in Croatian that we can use to start an outreach email, mentioning something specific about that company. Put each greeting in a new column next to the company name and save the file.",payoff:"An afternoon of copy-paste becomes two minutes."},
+    {icon:ICONS.book,title:"Summarize a long PDF to what matters",who:"Anyone with too much to read",before:"A 40-page report, unread for days.",after:"Clear bullets and the key answer.",prompt:"Read the PDF report in my Downloads folder and give me the five most important points in plain English, plus any deadlines or decisions we need to act on.",payoff:"An hour of reading becomes a 30-second summary."},
+    {icon:ICONS.doc,title:"Build a polished conference program document",who:"Program & logistics organizers",before:"Hours wrestling Word on every change.",after:"A formatted program with session tables.",prompt:"Here are my rough notes for the Plexus Conference day-one schedule. Turn them into a clean, professional conference program as a Word document, with a title page, session times in a table, speaker names, and talk titles. Make it look polished enough to send to attendees.",payoff:"A print-ready program in minutes, updated instantly."},
+    {icon:ICONS.table,title:"Clean up a messy registration list",who:"Registration & attendee-management organizers",before:"Duplicates, odd capitalization, blank cells.",after:"A tidy, deduplicated sheet back.",prompt:"Open my registration list spreadsheet from Downloads. Remove duplicate entries, fix the capitalization of names and cities, standardize how the roles are written (doctor, student, organizer), and save a cleaned-up copy. Tell me how many rows you removed.",payoff:"A clean, reliable attendee list in minutes."},
+    {icon:ICONS.chart,title:"Count who’s coming, by city and by role",who:"Organizers reporting numbers",before:"Counting rows by hand, again.",after:"Instant counts by city and role.",prompt:"Look at my registration spreadsheet in Downloads and tell me how many people registered from each city, and how many are doctors versus students versus other. Give me a clean summary table I can paste into an email.",payoff:"Instant, accurate answers to any “how many” question."},
+    {icon:ICONS.slides,title:"Make a pitch deck for a talk or sponsor meeting",who:"Anyone giving a talk or pitch",before:"Slides from scratch eat an evening.",after:"A clean deck with talking points.",prompt:"Build me a 10-slide pitch deck to present Med&X and the Plexus Conference to a potential sponsor. Cover who we are, what Plexus is, our audience of doctors and medical students, past highlights, and the sponsorship opportunity. Make it look clean and professional.",payoff:"A polished deck in minutes that looks professionally made."},
+    {icon:ICONS.award,title:"Generate certificates for every attendee",who:"Post-event & certification organizers",before:"Hundreds of names edited by hand.",after:"A print-ready certificate per person.",prompt:"Using the attendee list in my Documents folder, create a personalized participation certificate for each person for the Plexus Conference. Include their full name, the event name, and the date. Make them look elegant and give me all of them as PDFs ready to print.",payoff:"Hundreds of flawless certificates in one go."},
+    {icon:ICONS.search,title:"Research a speaker for a bio or intro",who:"Anyone writing bios or intros",before:"Ten tabs, easy to miss something.",after:"A clean bio or spoken intro.",prompt:"I need a short, warm speaker introduction for our Plexus Conference for a doctor named [name] from [hospital or university]. Research their background and write a 30-second spoken introduction highlighting their main achievements, in an engaging tone for the audience.",hint:"Replace the [brackets] with the real details before you press Enter.",payoff:"A ready-to-read introduction in a minute, not scattered tabs."},
+    {icon:ICONS.megaphone,title:"Write social posts to announce the conference",who:"Anyone on social media",before:"A post and caption, each retuned.",after:"Both written, plus a Croatian version.",prompt:"Write me two social media posts announcing that registration for the Plexus Conference is now open. One for LinkedIn (professional, a bit longer) and one for Instagram (punchy, friendly, with hashtags). Make them exciting and include a call to register. Give me a Croatian version of each as well.",payoff:"Platform-perfect posts in both languages in under a minute."},
+    {icon:ICONS.calendar,title:"Plan the day-of schedule and logistics",who:"Event-day logistics leads",before:"Scattered notes on rooms and slots.",after:"A clear minute-by-minute plan for the day.",prompt:"Here are my rough notes for our conference day: doors open 8:30, opening at 9, three morning talks, lunch, two afternoon sessions, closing at 5. Build me a clear minute-by-minute plan for the day as a document, with room assignments and a column for who is responsible for each part. Flag any timing that looks too tight.",payoff:"A calm minute-by-minute plan that reshuffles when things change."},
+    {icon:ICONS.book,title:"Help with your own doctor and student work",who:"Any Med&X doctor or student",before:"A dense paper and a letter waiting.",after:"A summary and a drafted letter.",prompt:"Summarize this journal article in plain language in five bullet points, then draft a short recommendation letter for a student based on the notes in this folder.",payoff:"Dense reading and blank-page tasks become minutes of reviewing."}
   ];
 
   var copyIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
@@ -1874,20 +1913,26 @@
 
   function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
+  var HUES = ["h-teal","h-apricot","h-sage","h-plum","h-sand"];
   var grid = document.getElementById("ucGrid");
   cases.forEach(function(c, i){
     var art = document.createElement("article");
-    art.className = "uc reveal";
+    art.className = "uc reveal " + HUES[i % HUES.length];
     art.innerHTML =
-      '<div class="uc-head">' +
-        '<div class="uc-ic" aria-hidden="true">' + c.icon + '</div>' +
-        '<h3>' + esc(c.title) + '</h3>' +
-        '<div class="who">' + esc(c.who) + '</div>' +
+      '<div class="uc-top">' +
+        '<span class="uc-ic" aria-hidden="true">' + c.icon + '</span>' +
+        '<div class="uc-head-txt">' +
+          '<h3>' + esc(c.title) + '</h3>' +
+          '<span class="uc-who">' + esc(c.who) + '</span>' +
+        '</div>' +
       '</div>' +
-      '<div class="uc-ba">' +
-        '<div class="ba-row before"><span class="ba-tag before">Before</span><span class="ba-text">' + esc(c.before) + '</span></div>' +
-        '<div class="ba-row after"><span class="ba-tag after">With Claude</span><span class="ba-text">' + esc(c.after) + '</span></div>' +
+      '<p class="uc-star">' + esc(c.payoff) + '</p>' +
+      '<div class="uc-ba" aria-hidden="true">' +
+        '<span class="uc-before">' + esc(c.before) + '</span>' +
+        '<svg class="uc-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>' +
+        '<span class="uc-after">' + esc(c.after) + '</span>' +
       '</div>' +
+      '<span class="sr-only">Before: ' + esc(c.before) + ' With Claude: ' + esc(c.after) + '</span>' +
       '<details class="uc-ex">' +
         '<summary>See the example<svg class="exchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>' +
         '<div class="uc-prompt">' +
@@ -1895,8 +1940,7 @@
           (c.hint ? '<div class="phint">' + esc(c.hint) + '</div>' : '') +
           '<button class="copy-btn" type="button" aria-label="Copy this example">' + copyIcon + '<span>Copy example</span></button>' +
         '</div>' +
-      '</details>' +
-      '<div class="uc-payoff"><span class="spark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></span><span>' + esc(c.payoff) + '</span></div>';
+      '</details>';
     grid.appendChild(art);
 
     var btn = art.querySelector(".copy-btn");
